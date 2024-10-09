@@ -2,7 +2,9 @@
   <header>
     <div><img src="/logo.png" alt="rick and morty" /></div>
     <nav>
-      <RouterLink v-for="{ route, label } in navRoutes" :to="route">{{ label }}</RouterLink>
+      <RouterLink v-for="{ route, label } in navRoutes" :to="route">
+        {{ label }}
+      </RouterLink>
     </nav>
   </header>
 </template>
