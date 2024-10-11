@@ -18,8 +18,8 @@
         >
           <RouterLink 
             class="nav__link" 
-            :to="route" 
             active-class="active"
+            :to="route" 
           >
             {{ label }}
           </RouterLink>
@@ -30,22 +30,23 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick, useTemplateRef, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 import { navRoutes } from '@/constants'
-import { nextTick, useTemplateRef, watch } from 'vue'
 
 const navList = useTemplateRef<HTMLUListElement | null>('navList')
 const routesContainers = useTemplateRef<HTMLAnchorElement[] | null>('routeContainer')
 
 const route = useRoute()
 
-const findActiveRouteElement = () =>
-  routesContainers.value?.find((container) =>
+function findActiveRouteElement() {
+  return routesContainers.value?.find((container) =>
     container.querySelector('a')?.classList.contains('active')
   )
+}
 
-const setTab = async () => {
+async function setTab() {
   await nextTick()
 
   const activeRouteElement = findActiveRouteElement()
@@ -64,19 +65,29 @@ watch(route, () => setTab())
 
 <style scoped lang="scss">
 .nav {
+  $mask-size: 24px;
+  $overlay-transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+  $nav-scroll-mask: linear-gradient(
+    90deg,
+    transparent,
+    #000 $mask-size,
+    #000 calc(100% - $mask-size),
+    transparent 100%
+  );
+
   position: sticky;
-  top: var(--space-sm);
+  top: $space-sm;
   display: flex;
-  margin: var(--m-sm) auto;
-  padding: var(--p-sm) var(--p-md);
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius-lg);
+  margin: $m-sm auto;
+  padding: $p-sm $p-md;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
   width: max-content;
-  background-color: hsl(var(--card) / 0.4);
+  background-color: rgba($card, 0.4);
   backdrop-filter: blur(4px);
 
   &__logo-container {
-    margin-right: var(--m-lg);
+    margin-right: $m-lg;
   }
 
   &__logo {
@@ -91,52 +102,44 @@ watch(route, () => setTab())
   &__nav-list {
     position: relative;
     display: flex;
-    gap: var(--space-lg);
+    gap: $space-lg;
 
     &::after {
       content: '';
       position: absolute;
       left: var(--offset-left);
-      border-radius: var(--radius);
+      border-radius: $radius;
       height: 100%;
       width: var(--width);
-      background: hsl(var(--primary));
+      background: $primary;
       mix-blend-mode: color;
       pointer-events: none;
-      transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+      transition: $overlay-transition;
     }
   }
 
   &__nav-list-item {
-    padding: calc(var(--p-xs) / 2) var(--p-xs);
+    padding: calc($p-xs / 2) $p-xs;
 
     &:not(:has(.active)):hover {
-      color: hsl(var(--primary));
+      color: $primary;
     }
   }
 
   @include respond(bp-sm) {
-    --mask-size: 24px;
-
-    margin: var(--m-sm) var(--m-sm);
-    padding: var(--p-sm) var(--p-sm);
-    width: calc(100% - (var(--m-sm) * 2));
+    margin: $m-sm $m-sm;
+    padding: $p-sm $p-sm;
+    width: calc(100% - ($m-sm * 2));
 
     &__logo-container {
       flex-shrink: 0;
-      margin-right: var(--m-xs);
+      margin-right: $m-xs;
     }
 
     &__nav-container {
       display: block;
       overflow-x: auto;
-      mask-image: linear-gradient(
-        90deg,
-        transparent,
-        #000 var(--mask-size),
-        #000 calc(100% - var(--mask-size)),
-        transparent 100%
-      );
+      mask-image: $nav-scroll-mask;
 
       &::-webkit-scrollbar {
         display: none;
@@ -144,8 +147,8 @@ watch(route, () => setTab())
     }
 
     &__nav-list {
-      gap: var(--space-xs);
-      margin: 0 var(--mask-size);
+      gap: $space-xs;
+      margin: 0 $mask-size;
     }
 
     &__nav-list-item {
