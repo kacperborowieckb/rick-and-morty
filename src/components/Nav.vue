@@ -65,7 +65,10 @@ watch(route, () => setTab())
 
 <style scoped lang="scss">
 .nav {
+  $nav-z-index: 10;
+
   position: sticky;
+  z-index: $nav-z-index;
   top: $space-sm;
   display: flex;
   margin: $m-sm auto;
@@ -73,7 +76,7 @@ watch(route, () => setTab())
   border: 1px solid $border;
   border-radius: $radius-lg;
   width: max-content;
-  background-color: rgba($card, 0.4);
+  background-color: rgba($card, 0.8);
   backdrop-filter: blur(4px);
 
   &__logo-container {
@@ -91,6 +94,7 @@ watch(route, () => setTab())
 
   &__nav-list {
     position: relative;
+    z-index: $nav-z-index;
     display: flex;
     gap: $space-lg;
 
