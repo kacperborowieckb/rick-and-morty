@@ -1,7 +1,15 @@
+export const routes = {
+  home: '/',
+  characters: '/characters',
+  episodes: '/episodes',
+  locations: '/locations',
+  watchList: '/watch-list'
+} as const
+
 export const navRoutes = [
-  { route: '/', label: 'Home' },
-  { route: '/characters', label: 'Characters' },
-  { route: '/episodes', label: 'Episodes' },
-  { route: '/locations', label: 'Locations' },
-  { route: '/watch-list', label: 'Watch List' }
+  { route: routes.home, label: 'Home' },
+  { route: routes.characters, label: 'Characters' },
+  { route: routes.episodes, label: 'Episodes' },
+  { route: routes.locations, label: 'Locations' },
+  { route: routes.watchList, label: 'Watch List' }
 ] as const

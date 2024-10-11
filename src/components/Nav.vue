@@ -121,12 +121,13 @@ watch(route, () => setTab())
   &__nav-list-item {
     padding: calc($p-xs / 2) $p-xs;
 
-    &:not(:has(.active)):hover {
-      color: $primary;
-    }
   }
 
-  @include respond(bp-sm) {
+  &__link:not(.active):hover {
+    color: $primary;    
+  }
+
+  @include respond(bp-md) {
     margin: $m-sm $m-sm;
     padding: $p-sm $p-sm;
     width: calc(100% - ($m-sm * 2));
@@ -139,14 +140,16 @@ watch(route, () => setTab())
     &__nav-container {
       display: block;
       overflow-x: auto;
+      width: 100%;
       mask-image: $nav-scroll-mask;
-
+      
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
     &__nav-list {
+      justify-content: space-evenly;
       gap: $space-xs;
       margin: 0 $mask-size;
     }
