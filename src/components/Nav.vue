@@ -65,8 +65,6 @@ watch(route, () => setTab())
 
 <style scoped lang="scss">
 .nav {
-  $mask-size: 24px;
-
   position: sticky;
   top: $space-sm;
   display: flex;
@@ -143,7 +141,7 @@ watch(route, () => setTab())
     &__nav-list {
       justify-content: space-evenly;
       gap: $space-xs;
-      margin: 0 $mask-size;
+      margin: 0 $nav-mask-size;
     }
 
     &__nav-list-item {
