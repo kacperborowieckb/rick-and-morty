@@ -1,0 +1,44 @@
+$bp-xs: 440px;
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1536px;
+
+@mixin respond($breakpoint) {
+    @if $breakpoint ==bp-xs {
+        @media only screen and (max-width: $bp-xs) {
+            @content;
+        }
+    }
+
+    @if $breakpoint ==bp-sm {
+        @media only screen and (max-width: $bp-sm) {
+            @content;
+        }
+    }
+
+    @if $breakpoint ==bp-md {
+        @media only screen and (max-width: $bp-md) {
+            @content;
+        }
+    }
+
+    @if $breakpoint ==bp-lg {
+        @media only screen and (max-width: $bp-lg) {
+            @content;
+        }
+    }
+
+    @if $breakpoint ==bp-xl {
+        @media only screen and (max-width: $bp-xl) {
+            @content;
+        }
+    }
+
+    @if $breakpoint ==2xl {
+        @media only screen and (max-width: $bp-2xl) {
+            @content;
+        }
+    }
+}
