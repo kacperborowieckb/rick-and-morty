@@ -47,7 +47,6 @@ function goToCharactersPage() {
   $icon-height: 96px;
   $default-delay: 100ms;
   $step-delay: 25ms;
-  $fade-in-animation: fadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
 
   &__wrapper {
     display: flex;

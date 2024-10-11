@@ -66,14 +66,6 @@ watch(route, () => setTab())
 <style scoped lang="scss">
 .nav {
   $mask-size: 24px;
-  $overlay-transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
-  $nav-scroll-mask: linear-gradient(
-    90deg,
-    transparent,
-    #000 $mask-size,
-    #000 calc(100% - $mask-size),
-    transparent 100%
-  );
 
   position: sticky;
   top: $space-sm;
@@ -114,7 +106,7 @@ watch(route, () => setTab())
       background: $primary;
       mix-blend-mode: color;
       pointer-events: none;
-      transition: $overlay-transition;
+      transition: $nav-overlay-transition;
     }
   }
 
@@ -128,8 +120,8 @@ watch(route, () => setTab())
   }
 
   @include respond(bp-md) {
-    margin: $m-sm $m-sm;
-    padding: $p-sm $p-sm;
+    margin: $m-sm;
+    padding: $p-sm;
     width: calc(100% - ($m-sm * 2));
 
     &__logo-container {
