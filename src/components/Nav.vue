@@ -66,14 +66,6 @@ watch(route, () => setTab())
 <style scoped lang="scss">
 .nav {
   $mask-size: 24px;
-  $overlay-transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
-  $nav-scroll-mask: linear-gradient(
-    90deg,
-    transparent,
-    #000 $mask-size,
-    #000 calc(100% - $mask-size),
-    transparent 100%
-  );
 
   position: sticky;
   top: $space-sm;
@@ -114,21 +106,22 @@ watch(route, () => setTab())
       background: $primary;
       mix-blend-mode: color;
       pointer-events: none;
-      transition: $overlay-transition;
+      transition: $nav-overlay-transition;
     }
   }
 
   &__nav-list-item {
     padding: calc($p-xs / 2) $p-xs;
 
-    &:not(:has(.active)):hover {
-      color: $primary;
-    }
   }
 
-  @include respond(bp-sm) {
-    margin: $m-sm $m-sm;
-    padding: $p-sm $p-sm;
+  &__link:not(.active):hover {
+    color: $primary;    
+  }
+
+  @include respond(bp-md) {
+    margin: $m-sm;
+    padding: $p-sm;
     width: calc(100% - ($m-sm * 2));
 
     &__logo-container {
@@ -139,14 +132,16 @@ watch(route, () => setTab())
     &__nav-container {
       display: block;
       overflow-x: auto;
+      width: 100%;
       mask-image: $nav-scroll-mask;
-
+      
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
     &__nav-list {
+      justify-content: space-evenly;
       gap: $space-xs;
       margin: 0 $mask-size;
     }
