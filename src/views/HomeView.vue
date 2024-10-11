@@ -7,9 +7,23 @@
         your own watch list!
       </p>
       <div class="home__action-wrapper">
-        <img class="home__image home__image--rick" src="/rick.svg" alt="rick" />
-        <Button class="home__action" size="xl" @click="goToCharactersPage"> Explore! </Button>
-        <img class="home__image home__image--morty" src="/morty.svg" alt="morty" />
+        <img 
+          class="home__image home__image--rick" 
+          src="/rick.svg" 
+          alt="rick" 
+        />
+        <Button 
+          class="home__action" 
+          size="xl" 
+          @click="goToCharactersPage"
+        > 
+          Explore! 
+        </Button>
+        <img 
+          class="home__image home__image--morty" 
+          src="/morty.svg" 
+          alt="morty" 
+        />
       </div>
     </div>
   </main>
