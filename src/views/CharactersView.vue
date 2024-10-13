@@ -4,25 +4,48 @@
     <section class="characters__filters">filters</section>
     <section class="characters__list">
       <CharacterCard
-        v-for="character in charactersStore.characters"
+        v-for="character in characters"
         :characterData="character"
         :key="character.id"
       />
     </section>
+    <Pagination
+      :currentPage="searchParams.page"
+      :allPagesCount="pages"
+      :action="(newPage) => setSearchParams({ page: newPage })"
+    />
   </main>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterCard from '@/components/CharacterCard.vue'
+import Pagination from '@/components/Pagination.vue'
+import { useSearchParams } from '@/composables/useSearchParams'
+import type { Character } from '@/services/characters'
+
+type CharactersViewSearchParams = { page: number } & Pick<
+  Character,
+  'name' | 'status' | 'species' | 'type' | 'gender'
+>
 
 const charactersStore = useCharactersStore()
 
-onMounted(() => {
-  charactersStore.fetchCharacters()
-})
+const { characters, count, pages, isFetchingCharacters, charactersError } =
+  storeToRefs(charactersStore)
+
+const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
+
+watch(
+  searchParams,
+  () => {
+    charactersStore.fetchCharacters(searchParams.value)
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped lang="scss">

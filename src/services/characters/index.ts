@@ -1,13 +1,14 @@
+import type { SearchParams } from '@/composables/useSearchParams'
 import http from '@/services/api'
 import { endpoints } from '@/services/index'
 
 export type Character = {
   id: number
   name: string
-  status: 'Alive' | 'Dead' | 'unknown'
+  status: 'alive' | 'dead' | 'unknown'
   species: string
   type: string
-  gender: string
+  gender: 'female' | 'male' | 'genderless' | 'unknown'
   image: string
   episode: string[]
 }
@@ -24,15 +25,8 @@ export type GetCharactersResponse = {
   results: Character[]
 }
 
-type GetCharactersProps = {
-  paginationEndpoint?: string
-  searchParams?: string
-}
-
-async function getCharacters({ paginationEndpoint, searchParams }: GetCharactersProps = {}) {
-  const endpoint = paginationEndpoint || endpoints.characters
-
-  return await http.get<GetCharactersResponse>(`${endpoint}${searchParams ?? ''}`)
+async function getCharacters(searchParams?: SearchParams) {
+  return await http.get<GetCharactersResponse>(`${endpoints.characters}`, { params: searchParams })
 }
 
 export default { getCharacters }

@@ -7,6 +7,7 @@ import type {
 } from '@/services/characters'
 import { makeSafeAction } from '@/utils/makeSafeAction'
 import { api } from '@/services'
+import type { SearchParams } from '@/composables/useSearchParams'
 
 type CharactersStoreState = GetCharactersResponseInfo & {
   characters: Character[]
@@ -25,11 +26,11 @@ export const useCharactersStore = defineStore('characters', {
     charactersError: null
   }),
   actions: {
-    async fetchCharacters() {
+    async fetchCharacters(searchParamsQuery?: SearchParams) {
       this.isFetchingCharacters = true
 
       const { data, errorMessage } = await makeSafeAction<GetCharactersResponse>({
-        action: api.characters.getCharacters
+        action: () => api.characters.getCharacters(searchParamsQuery)
       })
 
       if (errorMessage) {
