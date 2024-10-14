@@ -3,11 +3,15 @@
     <h1 class="characters__heading">Explore Rick and Morty Characters!</h1>
     <section class="characters__filters">filters</section>
     <section class="characters__list">
+      <p v-if="isFetchingCharacters">Loading..</p>
+      <p v-else-if="charactersError">{{ charactersError }}</p>
       <CharacterCard
+        v-else-if="characters.length"
         v-for="character in characters"
         :characterData="character"
         :key="character.id"
       />
+      <p v-else>No characters found :c</p>
     </section>
     <Pagination
       :currentPage="searchParams.page"

@@ -19,8 +19,6 @@ export const useCharactersStore = defineStore('characters', {
   state: (): CharactersStoreState => ({
     count: 0,
     pages: 0,
-    next: null,
-    prev: null,
     characters: [],
     isFetchingCharacters: false,
     charactersError: null
@@ -28,6 +26,7 @@ export const useCharactersStore = defineStore('characters', {
   actions: {
     async fetchCharacters(searchParamsQuery?: SearchParams) {
       this.isFetchingCharacters = true
+      this.charactersError = null
 
       const { data, errorMessage } = await makeSafeAction<GetCharactersResponse>({
         action: () => api.characters.getCharacters(searchParamsQuery)
@@ -38,12 +37,10 @@ export const useCharactersStore = defineStore('characters', {
       }
 
       if (data) {
-        const { count, pages, next, prev } = data.data.info
+        const { count, pages } = data.data.info
 
         this.count = count
         this.pages = pages
-        this.next = next
-        this.prev = prev
         this.characters = data.data.results
       }
 

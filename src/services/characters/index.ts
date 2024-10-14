@@ -16,8 +16,6 @@ export type Character = {
 export type GetCharactersResponseInfo = {
   count: number
   pages: number
-  next: string | null
-  prev: string | null
 }
 
 export type GetCharactersResponse = {
