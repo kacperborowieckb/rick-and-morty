@@ -25,9 +25,9 @@
 import { watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { useCharactersStore } from '@/stores/charactersStore'
 import CharacterCard from '@/components/CharacterCard.vue'
 import Pagination from '@/components/Pagination.vue'
+import { useCharactersStore } from '@/stores/charactersStore'
 import { useSearchParams } from '@/composables/useSearchParams'
 import type { Character } from '@/services/characters'
 
@@ -38,8 +38,7 @@ type CharactersViewSearchParams = { page: number } & Pick<
 
 const charactersStore = useCharactersStore()
 
-const { characters, count, pages, isFetchingCharacters, charactersError } =
-  storeToRefs(charactersStore)
+const { characters, pages, isFetchingCharacters, charactersError } = storeToRefs(charactersStore)
 
 const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
 

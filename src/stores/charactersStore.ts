@@ -5,8 +5,8 @@ import type {
   GetCharactersResponse,
   GetCharactersResponseInfo
 } from '@/services/characters'
-import { makeSafeAction } from '@/utils/makeSafeAction'
 import { api } from '@/services'
+import { makeSafeAction } from '@/utils/makeSafeAction'
 import type { SearchParams } from '@/composables/useSearchParams'
 
 type CharactersStoreState = GetCharactersResponseInfo & {

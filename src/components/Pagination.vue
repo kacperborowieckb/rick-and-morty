@@ -37,6 +37,8 @@ type PaginationProps = {
   action: (newPage: number) => void
 }
 
+// is it okay to make variables like this in a component?
+// i just didn't want to repeat hardcoded '1' so many times
 const STARTING_PAGE = 1
 
 const props = withDefaults(defineProps<PaginationProps>(), { currentPage: STARTING_PAGE })
