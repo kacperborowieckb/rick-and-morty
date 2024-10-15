@@ -1,5 +1,7 @@
 export const API_URL = 'https://rickandmortyapi.com/api'
 
+export const DEFAULT_DEBOUNCE_DELAY = 1000
+
 export const routes = {
   home: '/',
   characters: '/characters',

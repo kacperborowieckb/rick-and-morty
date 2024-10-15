@@ -28,12 +28,13 @@ export const useCharactersStore = defineStore('characters', {
       this.isFetchingCharacters = true
       this.charactersError = null
 
-      const { data, errorMessage } = await makeSafeAction<GetCharactersResponse>({
+      const { data, errorMessage, errorStatus } = await makeSafeAction<GetCharactersResponse>({
         action: () => api.characters.getCharacters(searchParamsQuery)
       })
 
       if (errorMessage) {
-        this.charactersError = errorMessage
+        this.$reset()
+        this.charactersError = errorStatus === 404 ? 'No characters found.' : errorMessage
       }
 
       if (data) {

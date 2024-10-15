@@ -1,6 +1,16 @@
 <template>
   <section class="pagination">
+<<<<<<< HEAD
     <button class="pagination__button" @click="emit('pageChange', STARTING_PAGE)">&#171;</button>
+=======
+    <button 
+      class="pagination__button" 
+      :disabled="isPrevDisabled" 
+      @click="action(STARTING_PAGE)"
+    >
+      &#171;
+    </button>
+>>>>>>> 60aaeab (feat: accesible dropdown, filter section without DRY, debounce util, adjust error messaging at characters)
     <button
       class="pagination__button"
       :disabled="isPrevDisabled"
@@ -24,7 +34,17 @@
     >
       &gt;
     </button>
+<<<<<<< HEAD
     <button class="pagination__button" @click="emit('pageChange', totalPagesNumber)">&#187;</button>
+=======
+    <button 
+      class="pagination__button" 
+      :disabled="isNextDisabled" 
+      @click="action(allPagesCount)"
+    >
+      &#187;
+    </button>
+>>>>>>> 60aaeab (feat: accesible dropdown, filter section without DRY, debounce util, adjust error messaging at characters)
   </section>
 </template>
 
