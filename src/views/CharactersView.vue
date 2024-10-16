@@ -71,9 +71,11 @@ watch(
 <style scoped lang="scss">
 .characters {
   $max-item-width: 340px;
+  $min-filter-width: 200px;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: $space-sm;
 
   &__heading {
@@ -81,9 +83,13 @@ watch(
   }
 
   &__filters {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($min-filter-width, 1fr));
+    justify-items: center;
+    align-items: center;
     gap: $space-md;
+    width: 100%;
+    max-width: $max-width-container;
     padding: $p-xs;
   }
 
@@ -93,6 +99,7 @@ watch(
     justify-items: center;
     align-items: center;
     gap: $space-lg;
+    width: 100%;
     max-width: $max-width-container;
   }
 }

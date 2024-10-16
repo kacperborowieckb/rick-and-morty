@@ -39,7 +39,7 @@
     :action="(value) => setSearchParams({ gender: value })"
   />
 
-  <Button @click="setSearchParams({}, true)">Reset All</Button>
+  <Button style="width: 100%" @click="setSearchParams({}, true)">Reset All</Button>
 </template>
 
 <script setup lang="ts">

@@ -113,7 +113,7 @@ function clearSelectedValue() {
   $search-input-border-transparent: 1px solid transparent;
 
   position: relative;
-  width: max-content;
+  width: 100%;
 
   &__input {
     border: $search-input-border;
@@ -131,6 +131,8 @@ function clearSelectedValue() {
   }
 
   &__input {
+    width: 100%;
+
     &::placeholder {
       color: $muted-foreground;
       text-align: center;
