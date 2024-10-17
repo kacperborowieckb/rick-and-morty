@@ -1,8 +1,9 @@
 <template>
-  <div class="character-card">
+  <div class="character-card" @click="openModal">
     <div class="character-card__image-wrapper">
       <img class="character-card__image" :src="image" :alt="name" />
     </div>
+<<<<<<< HEAD
     <ul class="character-card__desc">
       <li>
         <h3 class="character-card__name character-card__desc-item">{{ name }}</h3>
@@ -17,15 +18,42 @@
     <div class="character-card__status" :class="`character-card__status--${status.toLowerCase()}`">
       {{ status }}
     </div>
+=======
+    <div class="character-card__desc">
+      <h3 class="character-card__name">{{ name }}</h3>
+      <p class="character-card__info">{{ `${gender}, ${species}` }}</p>
+      <p class="character-card__info--type">Type: {{ type || 'Unknown' }}</p>
+    </div>
+    <CharacterCardStatus :status="status" />
+>>>>>>> fb6664e (feat: character card modal with teleport)
   </div>
+  <CharacterCardModal
+    :characterData="characterData"
+    :isOpen="isModalOpen"
+    :closeModal="closeModal"
+  />
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import type { Character } from '@/services/characters'
+import CharacterCardModal from './CharacterCardModal.vue'
+import CharacterCardStatus from './CharacterCardStatus.vue'
+
+const isModalOpen = ref(false)
 
 const props = defineProps<{ characterData: Character }>()
 
 const { gender, image, name, species, status, type } = props.characterData
+
+function openModal() {
+  isModalOpen.value = true
+}
+
+function closeModal() {
+  isModalOpen.value = false
+}
 </script>
 
 <style scoped lang="scss">
@@ -71,29 +99,6 @@ const { gender, image, name, species, status, type } = props.characterData
   
   &__name {
     font-size: $fs-lg;
-  }
-
-  &__status {
-    position: absolute;
-    top: $space-sm;
-    right: $space-md;
-    padding: calc($p-xs / 2) $p-xs;
-    border-radius: $radius-sm;
-
-    &--alive {
-      background-color: $primary;
-      color: $primary-foreground;
-    }
-
-    &--dead {
-      background-color: $destructive;
-      color: $destructive-foreground;
-    }
-
-    &--unknown {
-      background-color: $muted;
-      color: $foreground;
-    }
   }
 }
 </style>

@@ -70,7 +70,7 @@ watch(
 
 <style scoped lang="scss">
 .characters {
-  $max-item-width: 340px;
+  $max-item-width: 320px;
   $min-filter-width: 200px;
 
   display: flex;
