@@ -15,21 +15,11 @@
       />
       <p v-else>No characters found :c</p>
     </section>
-<<<<<<< HEAD
     <Pagination
       :currentPage="searchParams.page"
       :totalPagesNumber="pages"
       @pageChange="(newPage) => setSearchParams({ page: newPage })"
     />
-=======
-    <template v-if="shouldDisplayPagination">
-      <Pagination
-        :currentPage="searchParams.page"
-        :allPagesCount="pages"
-        :action="(newPage) => setSearchParams({ page: newPage })"
-      />
-    </template>
->>>>>>> 60aaeab (feat: accesible dropdown, filter section without DRY, debounce util, adjust error messaging at characters)
   </main>
 </template>
 

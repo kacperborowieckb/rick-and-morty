@@ -36,7 +36,6 @@ type SearchInputProps = {
   type?: 'dropdown' | 'input'
   items?: { label: string; value: T }[]
   selectedValue: T
-  action: (value?: T) => void
   placeholder: string
   ariaLabel: string
 }
@@ -46,9 +45,11 @@ const searchInput = useTemplateRef('searchInput')
 
 const props = withDefaults(defineProps<SearchInputProps>(), { type: 'dropdown' })
 
+const emit = defineEmits<{ (e: 'filterChange', value?: T): void }>()
+
 const searchItems = computed(() => filterSearchItems())
 
-const debouncedAction = debounce(props.action)
+const debouncedAction = debounce(emit)
 
 function filterSearchItems() {
   return props.items?.filter((item) => {
@@ -76,7 +77,7 @@ function handleInputChange() {
   currentInputValue.value = searchInput.value?.value ?? ''
 
   if (props.type === 'input') {
-    debouncedAction((currentInputValue.value as T) || undefined)
+    debouncedAction('filterChange', (currentInputValue.value as T) || undefined)
   }
 }
 
@@ -84,7 +85,7 @@ function selectSearchValue(value: T, e?: MouseEvent) {
   const eventTarget = e?.target as HTMLElement
 
   clearCurrentInputValue()
-  props.action(value)
+  emit('filterChange', value)
   eventTarget?.blur()
 }
 
@@ -100,7 +101,7 @@ function clearCurrentInputValue() {
 
 function clearSelectedValue() {
   clearCurrentInputValue()
-  props.action()
+  emit('filterChange')
   searchInput.value?.focus()
 }
 </script>

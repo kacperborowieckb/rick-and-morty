@@ -1,13 +1,27 @@
 <template>
-  <Modal modalContentClass="character-card-modal" :isOpen="isOpen" :closeModal="closeModal">
+  <Modal 
+    modalContentClass="character-card-modal"
+    :isOpen="isOpen"
+    :closeModal="closeModal"
+  >
     <div class="character-card-modal__image-wrapper">
-      <img class="character-card-modal__image" :src="image" :alt="name" />
+      <img 
+        class="character-card-modal__image"
+        :src="image"
+        :alt="name" 
+      />
       <CharacterCardStatus :status="status" />
     </div>
     <div class="character-card-modal__desc">
-      <h3 class="character-card-modal__name">{{ name }}</h3>
-      <p class="character-card-modal__info">{{ `${gender}, ${species}` }}</p>
-      <p class="character-card-modal__info--type">Type: {{ type || 'Unknown' }}</p>
+      <h3 class="character-card-modal__name">
+        {{ name }}
+      </h3>
+      <p class="character-card-modal__info">
+        {{ `${gender}, ${species}` }}
+      </p>
+      <p class="character-card-modal__info--type">
+        Type: {{ type || 'Unknown' }}
+      </p>
       <Button variant="outline" @click="closeModal">Close</Button>
     </div>
   </Modal>

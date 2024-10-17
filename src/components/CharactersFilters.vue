@@ -4,7 +4,7 @@
     :placeholder="'Name'"
     :ariaLabel="'Search for character name'"
     :selectedValue="searchParams.name"
-    :action="(value) => setSearchParams({ name: value })"
+    @filterChange="(value) => setSearchParams({ name: value })"
   />
 
   <SearchInput
@@ -12,7 +12,7 @@
     :ariaLabel="'Search for character status'"
     :items="statusItems"
     :selectedValue="searchParams.status"
-    :action="(value) => setSearchParams({ status: value })"
+    @filterChange="(value) => setSearchParams({ status: value })"
   />
 
   <SearchInput
@@ -20,7 +20,7 @@
     :placeholder="'Species'"
     :ariaLabel="'Search for character specie'"
     :selectedValue="searchParams.species"
-    :action="(value) => setSearchParams({ species: value })"
+    @filterChange="(value) => setSearchParams({ species: value })"
   />
 
   <SearchInput
@@ -28,7 +28,7 @@
     :placeholder="'Type'"
     :ariaLabel="'Search for character type'"
     :selectedValue="searchParams.type"
-    :action="(value) => setSearchParams({ type: value })"
+    @filterChange="(value) => setSearchParams({ type: value })"
   />
 
   <SearchInput
@@ -36,7 +36,7 @@
     :ariaLabel="'Search for gender type'"
     :items="genderItems"
     :selectedValue="searchParams.gender"
-    :action="(value) => setSearchParams({ gender: value })"
+    @filterChange="(value) => setSearchParams({ gender: value })"
   />
 
   <Button style="width: 100%" @click="setSearchParams({}, true)">Reset All</Button>
