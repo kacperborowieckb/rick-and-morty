@@ -16,7 +16,7 @@
       @change="changePage"
     />
     <span>/</span>
-    <p>{{ allPagesCount }}</p>
+    <p>{{ totalPagesNumber }}</p>
     <button
       class="pagination__button"
       :disabled="isNextDisabled"
@@ -24,7 +24,7 @@
     >
       &gt;
     </button>
-    <button class="pagination__button" @click="emit('pageChange', allPagesCount)">&#187;</button>
+    <button class="pagination__button" @click="emit('pageChange', totalPagesNumber)">&#187;</button>
   </section>
 </template>
 
@@ -33,7 +33,7 @@ import { computed } from 'vue'
 
 type PaginationProps = {
   currentPage?: number | string
-  allPagesCount: number
+  totalPagesNumber: number
 }
 
 // is it okay to make variables like this in a component?
@@ -47,7 +47,7 @@ const emit = defineEmits<{ (e: 'pageChange', value: number): void }>()
 const currentPageNumber = computed(() => calculateCurrentPageNumber(props.currentPage))
 
 const isPrevDisabled = computed(() => currentPageNumber.value === STARTING_PAGE)
-const isNextDisabled = computed(() => currentPageNumber.value === props.allPagesCount)
+const isNextDisabled = computed(() => currentPageNumber.value === props.totalPagesNumber)
 
 function calculateCurrentPageNumber(pageNumberToValidate: string | number): number {
   const pageNumber = Number(pageNumberToValidate)
@@ -56,7 +56,7 @@ function calculateCurrentPageNumber(pageNumberToValidate: string | number): numb
     return STARTING_PAGE
   }
 
-  const isInRange = pageNumber <= props.allPagesCount && pageNumber > 0
+  const isInRange = pageNumber <= props.totalPagesNumber && pageNumber > 0
 
   return isInRange ? pageNumber : STARTING_PAGE
 }

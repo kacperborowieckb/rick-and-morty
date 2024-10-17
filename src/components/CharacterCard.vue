@@ -31,13 +31,13 @@ const { gender, image, name, species, status, type } = props.characterData
   display: flex;
   flex-direction: column;
   gap: $space-xs;
-  border: 1px solid $border;
-  border-radius: $radius;
-  background-color: $card;
+  overflow: hidden;
   width: 100%;
   height: 100%;
   max-width: $max-card-width;
-  overflow: hidden;
+  border: 1px solid $border;
+  border-radius: $radius;
+  background-color: $card;
   cursor: pointer;
 
   &__image-wrapper {
@@ -71,8 +71,8 @@ const { gender, image, name, species, status, type } = props.characterData
     position: absolute;
     top: $space-sm;
     right: $space-md;
-    border-radius: $radius-sm;
     padding: calc($p-xs / 2) $p-xs;
+    border-radius: $radius-sm;
 
     &--alive {
       background-color: $primary;

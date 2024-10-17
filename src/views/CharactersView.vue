@@ -15,7 +15,7 @@
     </section>
     <Pagination
       :currentPage="searchParams.page"
-      :allPagesCount="pages"
+      :totalPagesNumber="pages"
       @pageChange="(newPage) => setSearchParams({ page: newPage })"
     />
   </main>
