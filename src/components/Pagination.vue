@@ -1,10 +1,10 @@
 <template>
   <section class="pagination">
-    <button class="pagination__button" @click="action(STARTING_PAGE)">&#171;</button>
+    <button class="pagination__button" @click="emit('pageChange', STARTING_PAGE)">&#171;</button>
     <button
       class="pagination__button"
       :disabled="isPrevDisabled"
-      @click="action(currentPageNumber - 1)"
+      @click="emit('pageChange', currentPageNumber - 1)"
     >
       &lt;
     </button>
@@ -20,11 +20,11 @@
     <button
       class="pagination__button"
       :disabled="isNextDisabled"
-      @click="action(currentPageNumber + 1)"
+      @click="emit('pageChange', currentPageNumber + 1)"
     >
       &gt;
     </button>
-    <button class="pagination__button" @click="action(allPagesCount)">&#187;</button>
+    <button class="pagination__button" @click="emit('pageChange', allPagesCount)">&#187;</button>
   </section>
 </template>
 
@@ -34,7 +34,6 @@ import { computed } from 'vue'
 type PaginationProps = {
   currentPage?: number | string
   allPagesCount: number
-  action: (newPage: number) => void
 }
 
 // is it okay to make variables like this in a component?
@@ -42,6 +41,8 @@ type PaginationProps = {
 const STARTING_PAGE = 1
 
 const props = withDefaults(defineProps<PaginationProps>(), { currentPage: STARTING_PAGE })
+
+const emit = defineEmits<{ (e: 'pageChange', value: number): void }>()
 
 const currentPageNumber = computed(() => calculateCurrentPageNumber(props.currentPage))
 
@@ -65,7 +66,7 @@ function changePage(e: Event) {
 
   if (!inputElement.value) return
 
-  props.action(calculateCurrentPageNumber(inputElement.value))
+  emit('pageChange', calculateCurrentPageNumber(inputElement.value))
 }
 </script>
 

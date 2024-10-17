@@ -16,7 +16,7 @@
     <Pagination
       :currentPage="searchParams.page"
       :allPagesCount="pages"
-      :action="(newPage) => setSearchParams({ page: newPage })"
+      @pageChange="(newPage) => setSearchParams({ page: newPage })"
     />
   </main>
 </template>

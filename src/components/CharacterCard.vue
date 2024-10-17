@@ -15,13 +15,11 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-
 import type { Character } from '@/services/characters'
 
 const props = defineProps<{ characterData: Character }>()
 
-const { episode, gender, image, name, species, status, type } = toRefs(props.characterData)
+const { gender, image, name, species, status, type } = props.characterData
 </script>
 
 <style scoped lang="scss">
