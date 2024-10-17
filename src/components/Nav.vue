@@ -2,13 +2,25 @@
   <header class="nav">
     <div class="nav__logo-container">
       <RouterLink to="/">
-        <img class="nav__logo" src="/logo.png" alt="rick and morty" />
+        <img 
+          class="nav__logo"  
+          src="/logo.png" 
+          alt="rick and morty" 
+        />
       </RouterLink>
     </div>
     <nav class="nav__nav-container">
       <ul ref="navList" class="nav__nav-list">
-        <li v-for="{ route, label } in navRoutes" ref="routeContainer" class="nav__nav-list-item">
-          <RouterLink class="nav__link" active-class="active" :to="route">
+        <li 
+          v-for="{ route, label } in navRoutes" 
+          ref="routeContainer" 
+          class="nav__nav-list-item"
+        >
+          <RouterLink 
+            class="nav__link"  
+            active-class="active" 
+            :to="route"
+          >
             {{ label }}
           </RouterLink>
         </li>
