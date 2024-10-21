@@ -58,11 +58,15 @@ $max-width-container: 1440px;
 $max-width-text: 764px;
 
 // nav
+$nav-mask-size: 24px;
 $nav-overlay-transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
 $nav-scroll-mask: linear-gradient(90deg,
-        transparent,
-        #000 $mask-size,
-        #000 calc(100% - $mask-size),
-        transparent 100%);
+                transparent,
+                #000 $nav-mask-size,
+                #000 calc(100% - $nav-mask-size),
+                transparent 100%);
 
 $fade-in-animation: fadeIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) backwards;
+
+$border-sm: 1px solid $border;
+$border-md: 2px solid $border;

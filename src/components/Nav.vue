@@ -3,23 +3,23 @@
     <div class="nav__logo-container">
       <RouterLink to="/">
         <img 
-          class="nav__logo" 
-          src="/logo.png" 
-          alt="rick and morty" 
+          class="nav__logo"
+          src="/logo.png"
+          alt="rick and morty"
         />
       </RouterLink>
     </div>
     <nav class="nav__nav-container">
       <ul ref="navList" class="nav__nav-list">
         <li 
-          v-for="{ route, label } in navRoutes" 
-          ref="routeContainer" 
+          v-for="{ route, label } in navRoutes"
+          ref="routeContainer"
           class="nav__nav-list-item"
         >
           <RouterLink 
-            class="nav__link" 
+            class="nav__link"
             active-class="active"
-            :to="route" 
+            :to="route"
           >
             {{ label }}
           </RouterLink>
@@ -65,17 +65,18 @@ watch(route, () => setTab())
 
 <style scoped lang="scss">
 .nav {
-  $mask-size: 24px;
+  $nav-z-index: 10;
 
   position: sticky;
+  z-index: $nav-z-index;
   top: $space-sm;
   display: flex;
   margin: $m-sm auto;
   padding: $p-sm $p-md;
-  border: 1px solid $border;
+  border: $border-sm;
   border-radius: $radius-lg;
   width: max-content;
-  background-color: rgba($card, 0.4);
+  background-color: rgba($card, 0.8);
   backdrop-filter: blur(4px);
 
   &__logo-container {
@@ -93,6 +94,7 @@ watch(route, () => setTab())
 
   &__nav-list {
     position: relative;
+    z-index: $nav-z-index;
     display: flex;
     gap: $space-lg;
 
@@ -112,11 +114,10 @@ watch(route, () => setTab())
 
   &__nav-list-item {
     padding: calc($p-xs / 2) $p-xs;
-
   }
 
   &__link:not(.active):hover {
-    color: $primary;    
+    color: $primary;
   }
 
   @include respond(bp-md) {
@@ -134,7 +135,7 @@ watch(route, () => setTab())
       overflow-x: auto;
       width: 100%;
       mask-image: $nav-scroll-mask;
-      
+
       &::-webkit-scrollbar {
         display: none;
       }
@@ -143,7 +144,7 @@ watch(route, () => setTab())
     &__nav-list {
       justify-content: space-evenly;
       gap: $space-xs;
-      margin: 0 $mask-size;
+      margin: 0 $nav-mask-size;
     }
 
     &__nav-list-item {

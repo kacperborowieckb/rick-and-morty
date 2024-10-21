@@ -1,9 +1,8 @@
 <template>
   <button 
-    class="button" 
-    :class="buttonClasses" 
-    @click="onClick"
-  >
+    class="button"
+    :class="buttonClasses"
+    @click="onClick">
     <slot />
   </button>
 </template>
@@ -41,9 +40,9 @@ const buttonClasses = computed(
   justify-content: center;
   align-items: center;
   gap: $space-xs;
+  width: max-content;
   border: none;
   border-radius: $radius-sm;
-  width: max-content;
   color: $primary-foreground;
   cursor: pointer;
 
@@ -87,7 +86,8 @@ const buttonClasses = computed(
   }
 
   &__outline {
-    border: 1px solid $primary;
+    border: $border-sm;
+    border-color: $primary;
     background-color: $secondary;
     color: $secondary-foreground;
 
