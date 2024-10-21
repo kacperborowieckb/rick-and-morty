@@ -1,5 +1,8 @@
 <template>
-  <div class="character-card-status" :class="`character-card-status--${status.toLowerCase()}`">
+  <div 
+    class="character-card-status"
+    :class="`character-card-status--${status.toLowerCase()}`"
+  >
     {{ status }}
   </div>
 </template>

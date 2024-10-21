@@ -16,6 +16,7 @@
       <p v-else>No characters found :c</p>
     </section>
     <Pagination
+      v-if="shouldDisplayPagination"
       :currentPage="searchParams.page"
       :totalPagesNumber="pages"
       @pageChange="(newPage) => setSearchParams({ page: newPage })"

@@ -1,31 +1,30 @@
 <template>
   <div class="character-card" @click="openModal">
     <div class="character-card__image-wrapper">
-      <img class="character-card__image" :src="image" :alt="name" />
+      <img 
+        class="character-card__image" 
+        :src="image" 
+        :alt="name" 
+      />
     </div>
-<<<<<<< HEAD
     <ul class="character-card__desc">
       <li>
-        <h3 class="character-card__name character-card__desc-item">{{ name }}</h3>
+        <h3 class="character-card__name character-card__desc-item">
+          {{ name }}
+        </h3>
       </li>
       <li>
-        <p class="character-card__info character-card__desc-item">{{ `${gender}, ${species}` }}</p>
+        <p class="character-card__info character-card__desc-item">
+          {{ `${gender}, ${species}` }}
+        </p>
       </li>
       <li>
-        <p class="character-card__info--type character-card__desc-item">Type: {{ type || 'Unknown' }}</p>
+        <p class="character-card__info--type character-card__desc-item">
+          Type: {{ type || 'Unknown' }}
+        </p>
       </li>
     </ul>
-    <div class="character-card__status" :class="`character-card__status--${status.toLowerCase()}`">
-      {{ status }}
-    </div>
-=======
-    <div class="character-card__desc">
-      <h3 class="character-card__name">{{ name }}</h3>
-      <p class="character-card__info">{{ `${gender}, ${species}` }}</p>
-      <p class="character-card__info--type">Type: {{ type || 'Unknown' }}</p>
-    </div>
     <CharacterCardStatus :status="status" />
->>>>>>> fb6664e (feat: character card modal with teleport)
   </div>
   <CharacterCardModal
     :characterData="characterData"
@@ -89,14 +88,14 @@ function closeModal() {
     flex-direction: column;
     gap: $space-xs;
     padding: $p-xs $p-sm;
-
   }
+
   &__desc &__desc-item {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  
+
   &__name {
     font-size: $fs-lg;
   }

@@ -8,22 +8,36 @@
       <img 
         class="character-card-modal__image"
         :src="image"
-        :alt="name" 
+        :alt="name"
       />
       <CharacterCardStatus :status="status" />
     </div>
-    <div class="character-card-modal__desc">
-      <h3 class="character-card-modal__name">
-        {{ name }}
-      </h3>
-      <p class="character-card-modal__info">
-        {{ `${gender}, ${species}` }}
-      </p>
-      <p class="character-card-modal__info--type">
-        Type: {{ type || 'Unknown' }}
-      </p>
-      <Button variant="outline" @click="closeModal">Close</Button>
-    </div>
+    <ul class="character-card-modal__desc">
+      <li>
+        <h3 class="character-card-modal__name">
+          {{ name }}
+        </h3>
+      </li>
+      <li>
+        <p class="character-card-modal__info">
+          {{ `${gender}, ${species}` }}
+        </p>
+      </li>
+      <li>
+        <p class="character-card-modal__info--type">
+          Type: {{ type || 'Unknown' }}
+        </p>
+      </li>
+      <li class="character-card-modal__button-wrapper">
+        <Button 
+          class="character-card-modal__close-button"
+          variant="outline"
+          @click="closeModal"
+        >
+          Close
+        </Button>
+      </li>
+    </ul>
   </Modal>
 </template>
 
@@ -62,10 +76,13 @@ const { gender, image, name, species, status, type } = toRefs(props.characterDat
     flex-direction: column;
     gap: $space-xs;
     padding: $p-sm;
+  }
 
-    & button {
-      margin-left: auto;
-    }
+  &__button-wrapper {
+   display: flex;
+   justify-content: end;
+   align-items: end;
+   height: 100%;
   }
 
   &__name {

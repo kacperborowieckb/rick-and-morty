@@ -24,13 +24,16 @@
         </li>
       </ul>
     </template>
-    <button class="search-input__reset-button" @click="clearSelectedValue">&#10005;</button>
+    <button class="search-input__reset-button" @click="clearSelectedValue">
+      &#10005;
+    </button>
   </div>
 </template>
 
 <script setup lang="ts" generic="T">
-import { debounce } from '@/utils/debounce'
 import { computed, ref, useTemplateRef } from 'vue'
+
+import { debounce } from '@/utils/debounce'
 
 type SearchInputProps = {
   type?: 'dropdown' | 'input'
@@ -112,6 +115,7 @@ function clearSelectedValue() {
   $search-input-border: 1px solid $border;
   $search-input-border-light: 1px solid $primary;
   $search-input-border-transparent: 1px solid transparent;
+  $list-open-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   position: relative;
   width: 100%;
@@ -177,7 +181,7 @@ function clearSelectedValue() {
     border-top: none;
     border-radius: 0 0 $radius-sm $radius-sm;
     background-color: $card;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: $list-open-transition;
 
     &-item {
       overflow: hidden;

@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { Teleport } from 'vue'
 import FadeInTransition from './FadeInTransition.vue'
 
 export type ModalProps = {
@@ -34,7 +33,7 @@ defineProps<ModalProps>()
   background-color: rgba($card, 0.4);
 
   &__content {
-    border: 2px solid $border;
+    border: $border-md;
     border-radius: $radius;
     margin: $space-md;
     background-color: $card;

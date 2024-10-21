@@ -7,7 +7,7 @@
 <style lang="scss">
 .fadeIn-enter-active,
 .fadeIn-leave-active {
-  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: $fade-in-transition;
 }
 
 .fadeIn-enter-from,
