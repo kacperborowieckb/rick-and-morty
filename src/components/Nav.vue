@@ -73,7 +73,7 @@ watch(route, () => setTab())
   display: flex;
   margin: $m-sm auto;
   padding: $p-sm $p-md;
-  border: 1px solid $border;
+  border: $border-sm;
   border-radius: $radius-lg;
   width: max-content;
   background-color: rgba($card, 0.8);

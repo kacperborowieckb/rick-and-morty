@@ -3,11 +3,17 @@
     <div class="character-card__image-wrapper">
       <img class="character-card__image" :src="image" :alt="name" />
     </div>
-    <div class="character-card__desc">
-      <h3 class="character-card__name">{{ name }}</h3>
-      <p class="character-card__info">{{ `${gender}, ${species}` }}</p>
-      <p class="character-card__info--type">Type: {{ type || 'Unknown' }}</p>
-    </div>
+    <ul class="character-card__desc">
+      <li>
+        <h3 class="character-card__name character-card__desc-item">{{ name }}</h3>
+      </li>
+      <li>
+        <p class="character-card__info character-card__desc-item">{{ `${gender}, ${species}` }}</p>
+      </li>
+      <li>
+        <p class="character-card__info--type character-card__desc-item">Type: {{ type || 'Unknown' }}</p>
+      </li>
+    </ul>
     <div class="character-card__status" :class="`character-card__status--${status.toLowerCase()}`">
       {{ status }}
     </div>
@@ -35,7 +41,7 @@ const { gender, image, name, species, status, type } = props.characterData
   width: 100%;
   height: 100%;
   max-width: $max-card-width;
-  border: 1px solid $border;
+  border: $border-sm;
   border-radius: $radius;
   background-color: $card;
   cursor: pointer;
@@ -56,13 +62,13 @@ const { gender, image, name, species, status, type } = props.characterData
     gap: $space-xs;
     padding: $p-xs $p-sm;
 
-    & * {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
   }
-
+  &__desc &__desc-item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
   &__name {
     font-size: $fs-lg;
   }

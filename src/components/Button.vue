@@ -86,7 +86,8 @@ const buttonClasses = computed(
   }
 
   &__outline {
-    border: 1px solid $primary;
+    border: $border-sm;
+    border-color: $primary;
     background-color: $secondary;
     color: $secondary-foreground;
 
