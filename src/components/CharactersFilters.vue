@@ -1,42 +1,13 @@
 <template>
   <SearchInput
-    :type="'input'"
-    :placeholder="'Name'"
-    :ariaLabel="'Search for character name'"
-    :selectedValue="searchParams.name"
-    @filterChange="(value) => setSearchParams({ name: value })"
-  />
-
-  <SearchInput
-    :placeholder="'Status'"
-    :ariaLabel="'Search for character status'"
-    :items="statusItems"
-    :selectedValue="searchParams.status"
-    @filterChange="(value) => setSearchParams({ status: value })"
-  />
-
-  <SearchInput
-    :type="'input'"
-    :placeholder="'Species'"
-    :ariaLabel="'Search for character specie'"
-    :selectedValue="searchParams.species"
-    @filterChange="(value) => setSearchParams({ species: value })"
-  />
-
-  <SearchInput
-    :type="'input'"
-    :placeholder="'Type'"
-    :ariaLabel="'Search for character type'"
-    :selectedValue="searchParams.type"
-    @filterChange="(value) => setSearchParams({ type: value })"
-  />
-
-  <SearchInput
-    :placeholder="'Gender'"
-    :ariaLabel="'Search for gender type'"
-    :items="genderItems"
-    :selectedValue="searchParams.gender"
-    @filterChange="(value) => setSearchParams({ gender: value })"
+    v-for="({ ariaLabel, paramKey, placeholder, items, type }, index) in charactersFilters"
+    :key="`${index}${paramKey}`"
+    :type="type"
+    :placeholder="placeholder"
+    :ariaLabel="ariaLabel"
+    :items="items"
+    :selectedValue="searchParams[paramKey]"
+    @filterChange="(value) => setSearchParams({ [paramKey]: value })"
   />
 
   <Button style="width: 100%" @click="setSearchParams({}, true)">
@@ -49,7 +20,7 @@ import { useSearchParams } from '@/composables/useSearchParams'
 import type { Character } from '@/services/characters'
 import type { CharactersViewSearchParams } from '@/views/CharactersView.vue'
 
-import SearchInput from './SearchInput.vue'
+import SearchInput, { type SearchInputProps } from './SearchInput.vue'
 import Button from './Button.vue'
 
 const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
@@ -65,5 +36,47 @@ const genderItems: { label: string; value: Character['gender'] }[] = [
   { label: 'Genderless', value: 'genderless' },
   { label: 'Male', value: 'male' },
   { label: 'Unknown', value: 'unknown' }
+]
+
+type CharactersSearchInputProps = Omit<
+  SearchInputProps<string | Character['status'] | Character['gender']>,
+  'selectedValue'
+>
+
+type CharactersFiltersMapArray = (CharactersSearchInputProps & {
+  paramKey: keyof CharactersViewSearchParams
+})[]
+
+const charactersFilters: CharactersFiltersMapArray = [
+  {
+    type: 'input',
+    placeholder: 'Name',
+    ariaLabel: 'Search for character name',
+    paramKey: 'name'
+  },
+  {
+    placeholder: 'Status',
+    ariaLabel: 'Search for character status',
+    items: statusItems,
+    paramKey: 'status'
+  },
+  {
+    type: 'input',
+    placeholder: 'Species',
+    ariaLabel: 'Search for character species',
+    paramKey: 'species'
+  },
+  {
+    type: 'input',
+    placeholder: 'Type',
+    ariaLabel: 'Search for character type',
+    paramKey: 'type'
+  },
+  {
+    placeholder: 'Gender',
+    ariaLabel: 'Search for gender type',
+    items: genderItems,
+    paramKey: 'gender'
+  }
 ]
 </script>

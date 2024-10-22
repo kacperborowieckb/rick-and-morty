@@ -25,7 +25,7 @@ defineProps<ModalProps>()
 <style scoped lang="scss">
 .modal {
   position: fixed;
-  inset: 0px;
+  inset: 0;
   z-index: 20;
   display: flex;
   justify-content: center;

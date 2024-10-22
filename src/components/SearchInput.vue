@@ -24,9 +24,7 @@
         </li>
       </ul>
     </template>
-    <button class="search-input__reset-button" @click="clearSelectedValue">
-      &#10005;
-    </button>
+    <button class="search-input__reset-button" @click="clearSelectedValue">&#10005;</button>
   </div>
 </template>
 
@@ -35,7 +33,7 @@ import { computed, ref, useTemplateRef } from 'vue'
 
 import { debounce } from '@/utils/debounce'
 
-type SearchInputProps = {
+export type SearchInputProps<T> = {
   type?: 'dropdown' | 'input'
   items?: { label: string; value: T }[]
   selectedValue: T
@@ -46,7 +44,7 @@ type SearchInputProps = {
 const currentInputValue = ref<string | null>(null)
 const searchInput = useTemplateRef('searchInput')
 
-const props = withDefaults(defineProps<SearchInputProps>(), { type: 'dropdown' })
+const props = withDefaults(defineProps<SearchInputProps<T>>(), { type: 'dropdown' })
 
 const emit = defineEmits<{ (e: 'filterChange', value?: T): void }>()
 
@@ -172,7 +170,7 @@ function clearSelectedValue() {
     position: absolute;
     z-index: 1;
     top: 100%;
-    left: 0%;
+    left: 0;
     width: 100%;
     max-height: 0;
     overflow-y: scroll;
@@ -199,6 +197,10 @@ function clearSelectedValue() {
         background-color: $background;
         outline: $search-input-border;
       }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
