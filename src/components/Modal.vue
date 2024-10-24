@@ -1,7 +1,7 @@
 <template>
   <FadeInTransition>
     <Teleport to="#modals" v-if="isOpen">
-      <div class="modal" @click.self="closeModal">
+      <div class="modal" @click.self="$emit('closeModal')">
         <div class="modal__content" :class="modalContentClass">
           <slot />
         </div>
@@ -15,11 +15,15 @@ import FadeInTransition from './FadeInTransition.vue'
 
 export type ModalProps = {
   isOpen: boolean
-  closeModal: () => void
   modalContentClass?: string
 }
 
+export type ModalEmits = {
+  (e: 'closeModal'): void
+}
+
 defineProps<ModalProps>()
+defineEmits<ModalEmits>()
 </script>
 
 <style scoped lang="scss">

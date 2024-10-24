@@ -42,7 +42,7 @@ export type SearchInputProps<T> = {
 }
 
 const currentInputValue = ref<string | null>(null)
-const searchInput = useTemplateRef('searchInput')
+const searchInput = useTemplateRef<HTMLInputElement>('searchInput')
 
 const props = withDefaults(defineProps<SearchInputProps<T>>(), { type: 'dropdown' })
 

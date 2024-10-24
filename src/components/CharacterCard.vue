@@ -29,7 +29,7 @@
   <CharacterCardModal
     :characterData="characterData"
     :isOpen="isModalOpen"
-    :closeModal="closeModal"
+    @closeModal="closeModal"
   />
 </template>
 

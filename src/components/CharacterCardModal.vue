@@ -2,7 +2,7 @@
   <Modal 
     modalContentClass="character-card-modal"
     :isOpen="isOpen"
-    :closeModal="closeModal"
+    @closeModal="$emit('closeModal')"
   >
     <div class="character-card-modal__image-wrapper">
       <img 
@@ -32,7 +32,7 @@
         <Button 
           class="character-card-modal__close-button"
           variant="outline"
-          @click="closeModal"
+          @click="$emit('closeModal')"
         >
           Close
         </Button>
@@ -42,16 +42,15 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-
 import type { Character } from '@/services/characters'
-import Modal, { type ModalProps } from './Modal.vue'
+import Modal, { type ModalEmits, type ModalProps } from './Modal.vue'
 import CharacterCardStatus from './CharacterCardStatus.vue'
 import Button from './Button.vue'
 
 const props = defineProps<{ characterData: Character } & ModalProps>()
+defineEmits<ModalEmits>()
 
-const { gender, image, name, species, status, type } = toRefs(props.characterData)
+const { gender, image, name, species, status, type } = props.characterData
 </script>
 
 <style lang="scss">
