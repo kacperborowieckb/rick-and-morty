@@ -1,4 +1,4 @@
-import type { AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 
 type MakeSafeActionProps<T> = {
   action: () => Promise<AxiosResponse<T>>
@@ -7,6 +7,7 @@ type MakeSafeActionProps<T> = {
 type MakeSafeActionReturnType<T> = Promise<{
   data?: AxiosResponse<T>
   errorMessage?: string
+  errorStatus?: number
 }>
 
 export async function makeSafeAction<T>({
@@ -17,6 +18,7 @@ export async function makeSafeAction<T>({
 
     return { data }
   } catch (err) {
-    return { errorMessage: (err as Error).message }
+    const { message, status } = err as AxiosError
+    return { errorMessage: message, errorStatus: status }
   }
 }

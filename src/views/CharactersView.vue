@@ -1,7 +1,9 @@
 <template>
   <main class="characters">
     <h1 class="characters__heading">Explore Rick and Morty Characters!</h1>
-    <section class="characters__filters">filters</section>
+    <section class="characters__filters">
+      <CharactersFilters />
+    </section>
     <section class="characters__list">
       <p v-if="isFetchingCharacters">Loading..</p>
       <p v-else-if="charactersError">{{ charactersError }}</p>
@@ -14,6 +16,7 @@
       <p v-else>No characters found :c</p>
     </section>
     <Pagination
+      v-if="shouldDisplayPagination"
       :currentPage="searchParams.page"
       :totalPagesNumber="pages"
       @pageChange="(newPage) => setSearchParams({ page: newPage })"
@@ -22,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import CharacterCard from '@/components/CharacterCard.vue'
@@ -30,8 +33,9 @@ import Pagination from '@/components/Pagination.vue'
 import { useCharactersStore } from '@/stores/charactersStore'
 import { useSearchParams } from '@/composables/useSearchParams'
 import type { Character } from '@/services/characters'
+import CharactersFilters from '@/components/CharactersFilters.vue'
 
-type CharactersViewSearchParams = { page: number } & Pick<
+export type CharactersViewSearchParams = { page: number } & Pick<
   Character,
   'name' | 'status' | 'species' | 'type' | 'gender'
 >
@@ -41,6 +45,10 @@ const charactersStore = useCharactersStore()
 const { characters, pages, isFetchingCharacters, charactersError } = storeToRefs(charactersStore)
 
 const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
+
+const shouldDisplayPagination = computed(() => {
+  return characters.value.length && !isFetchingCharacters.value && !charactersError.value
+})
 
 watch(
   searchParams,
@@ -53,10 +61,12 @@ watch(
 
 <style scoped lang="scss">
 .characters {
-  $max-item-width: 340px;
+  $max-item-width: 320px;
+  $min-filter-width: 200px;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: $space-sm;
 
   &__heading {
@@ -64,7 +74,14 @@ watch(
   }
 
   &__filters {
-    margin-left: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($min-filter-width, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: $space-md;
+    width: 100%;
+    max-width: $max-width-container;
+    padding: $p-xs;
   }
 
   &__list {
@@ -73,6 +90,7 @@ watch(
     justify-items: center;
     align-items: center;
     gap: $space-lg;
+    width: 100%;
     max-width: $max-width-container;
   }
 }
