@@ -1,5 +1,5 @@
 <template>
-  <Modal 
+  <Modal
     modalContentClass="character-card-modal"
     :isOpen="isOpen"
     @closeModal="$emit('closeModal')"
@@ -7,10 +7,10 @@
     <div class="character-card-modal__image-wrapper">
       <img 
         class="character-card-modal__image"
-        :src="image"
-        :alt="name"
+        :src="image" 
+        :alt="name" 
       />
-      <CharacterCardStatus :status="status" />
+      <CharacterCardStatus v-if="status" :status="status" />
     </div>
     <ul class="character-card-modal__desc">
       <li>
@@ -24,12 +24,10 @@
         </p>
       </li>
       <li>
-        <p class="character-card-modal__info--type">
-          Type: {{ type || 'Unknown' }}
-        </p>
+        <p class="character-card-modal__info--type">Type: {{ type || 'Unknown' }}</p>
       </li>
       <li class="character-card-modal__button-wrapper">
-        <Button 
+        <Button
           class="character-card-modal__close-button"
           variant="outline"
           @click="$emit('closeModal')"
@@ -43,14 +41,13 @@
 
 <script setup lang="ts">
 import type { Character } from '@/services/characters'
+
 import Modal, { type ModalEmits, type ModalProps } from './Modal.vue'
 import CharacterCardStatus from './CharacterCardStatus.vue'
 import Button from './Button.vue'
 
-const props = defineProps<{ characterData: Character } & ModalProps>()
+defineProps<Partial<Character> & ModalProps>()
 defineEmits<ModalEmits>()
-
-const { gender, image, name, species, status, type } = props.characterData
 </script>
 
 <style lang="scss">
@@ -78,10 +75,10 @@ const { gender, image, name, species, status, type } = props.characterData
   }
 
   &__button-wrapper {
-   display: flex;
-   justify-content: end;
-   align-items: end;
-   height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 100%;
   }
 
   &__name {

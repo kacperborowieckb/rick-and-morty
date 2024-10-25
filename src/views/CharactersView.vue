@@ -7,11 +7,14 @@
     <section class="characters__list">
       <p v-if="isFetchingCharacters">Loading..</p>
       <p v-else-if="charactersError">{{ charactersError }}</p>
+      <!-- Is it okay to bind big object like this in such cases?
+        I know it is harder to read that's why i'm asking -->
       <CharacterCard
         v-else-if="characters.length"
         v-for="character in characters"
-        :characterData="character"
         :key="character.id"
+        v-bind="character"
+        @openModal="openModal"
       />
       <p v-else>No characters found :c</p>
     </section>
@@ -22,10 +25,17 @@
       @pageChange="(newPage) => setSearchParams({ page: newPage })"
     />
   </main>
+  <!-- Is it okay to bind big object like this in such cases?
+       I know it is harder to read that's why i'm asking -->
+  <CharacterCardModal
+    v-bind="modalData"
+    :isOpen="isModalOpen"
+    @closeModal="closeModal"
+  />
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import CharacterCard from '@/components/CharacterCard.vue'
@@ -34,6 +44,7 @@ import { useCharactersStore } from '@/stores/charactersStore'
 import { useSearchParams } from '@/composables/useSearchParams'
 import type { Character } from '@/services/characters'
 import CharactersFilters from '@/components/CharactersFilters.vue'
+import CharacterCardModal from '@/components/CharacterCardModal.vue'
 
 export type CharactersViewSearchParams = { page: number } & Pick<
   Character,
@@ -43,6 +54,9 @@ export type CharactersViewSearchParams = { page: number } & Pick<
 const charactersStore = useCharactersStore()
 
 const { characters, pages, isFetchingCharacters, charactersError } = storeToRefs(charactersStore)
+
+const isModalOpen = ref(false)
+const modalData = ref<Character>()
 
 const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
 
@@ -57,6 +71,16 @@ watch(
   },
   { immediate: true }
 )
+
+function openModal(characterData: Character) {
+  modalData.value = characterData
+  isModalOpen.value = true
+}
+
+function closeModal() {
+  isModalOpen.value = false
+  modalData.value = undefined
+}
 </script>
 
 <style scoped lang="scss">

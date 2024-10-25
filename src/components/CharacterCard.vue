@@ -1,9 +1,9 @@
 <template>
-  <div class="character-card" @click="openModal">
+  <div class="character-card" @click="$emit('openModal', props)">
     <div class="character-card__image-wrapper">
       <img 
-        class="character-card__image" 
-        :src="image" 
+        class="character-card__image"
+        :src="image"
         :alt="name" 
       />
     </div>
@@ -26,33 +26,15 @@
     </ul>
     <CharacterCardStatus :status="status" />
   </div>
-  <CharacterCardModal
-    :characterData="characterData"
-    :isOpen="isModalOpen"
-    @closeModal="closeModal"
-  />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
 import type { Character } from '@/services/characters'
-import CharacterCardModal from './CharacterCardModal.vue'
 import CharacterCardStatus from './CharacterCardStatus.vue'
 
-const isModalOpen = ref(false)
+const props = defineProps<Character>()
 
-const props = defineProps<{ characterData: Character }>()
-
-const { gender, image, name, species, status, type } = props.characterData
-
-function openModal() {
-  isModalOpen.value = true
-}
-
-function closeModal() {
-  isModalOpen.value = false
-}
+defineEmits<{ (e: 'openModal', characterData: Character): void }>()
 </script>
 
 <style scoped lang="scss">
