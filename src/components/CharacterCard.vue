@@ -1,31 +1,40 @@
 <template>
-  <div class="character-card">
+  <div class="character-card" @click="$emit('openModal', props)">
     <div class="character-card__image-wrapper">
-      <img class="character-card__image" :src="image" :alt="name" />
+      <img 
+        class="character-card__image"
+        :src="image"
+        :alt="name" 
+      />
     </div>
     <ul class="character-card__desc">
       <li>
-        <h3 class="character-card__name character-card__desc-item">{{ name }}</h3>
+        <h3 class="character-card__name character-card__desc-item">
+          {{ name }}
+        </h3>
       </li>
       <li>
-        <p class="character-card__info character-card__desc-item">{{ `${gender}, ${species}` }}</p>
+        <p class="character-card__info character-card__desc-item">
+          {{ `${gender}, ${species}` }}
+        </p>
       </li>
       <li>
-        <p class="character-card__info--type character-card__desc-item">Type: {{ type || 'Unknown' }}</p>
+        <p class="character-card__info--type character-card__desc-item">
+          Type: {{ type || 'Unknown' }}
+        </p>
       </li>
     </ul>
-    <div class="character-card__status" :class="`character-card__status--${status.toLowerCase()}`">
-      {{ status }}
-    </div>
+    <CharacterCardStatus :status="status" />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Character } from '@/services/characters'
+import CharacterCardStatus from './CharacterCardStatus.vue'
 
-const props = defineProps<{ characterData: Character }>()
+const props = defineProps<Character>()
 
-const { gender, image, name, species, status, type } = props.characterData
+defineEmits<{ (e: 'openModal', characterData: Character): void }>()
 </script>
 
 <style scoped lang="scss">
@@ -61,39 +70,16 @@ const { gender, image, name, species, status, type } = props.characterData
     flex-direction: column;
     gap: $space-xs;
     padding: $p-xs $p-sm;
-
   }
+
   &__desc &__desc-item {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  
+
   &__name {
     font-size: $fs-lg;
-  }
-
-  &__status {
-    position: absolute;
-    top: $space-sm;
-    right: $space-md;
-    padding: calc($p-xs / 2) $p-xs;
-    border-radius: $radius-sm;
-
-    &--alive {
-      background-color: $primary;
-      color: $primary-foreground;
-    }
-
-    &--dead {
-      background-color: $destructive;
-      color: $destructive-foreground;
-    }
-
-    &--unknown {
-      background-color: $muted;
-      color: $foreground;
-    }
   }
 }
 </style>

@@ -10,7 +10,6 @@ export type Character = {
   type: string
   gender: 'female' | 'male' | 'genderless' | 'unknown'
   image: string
-  episode: string[]
 }
 
 export type GetCharactersResponseInfo = {
