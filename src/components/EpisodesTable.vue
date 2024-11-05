@@ -6,7 +6,7 @@
       placeholder="Episode Name"
       ariaLabel="Search for episode name"
       :selectedValue="searchParams.name"
-      @filterChange="(value) => setSearchParams({ name: value })"
+      @filterChange="(name) => setSearchParams({ name })"
     />
     <div class="episodes-table__grid-wrapper">
       <AgGridVue
@@ -23,7 +23,7 @@
           class="episodes-table__pagination"
           :currentPage="searchParams.page"
           :totalPagesNumber="episodesStore.pages"
-          @pageChange="(newPage) => setSearchParams({ page: newPage })"
+          @pageChange="(page) => setSearchParams({ page })"
         />
       </div>
     </div>
