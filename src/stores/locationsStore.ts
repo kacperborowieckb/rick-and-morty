@@ -30,7 +30,7 @@ export const useLocationsStore = defineStore('locations', {
 
       if (errorMessage) {
         this.$reset()
-        this.locationsError = errorStatus === 404 ? 'No characters found.' : errorMessage
+        this.locationsError = errorStatus === 404 ? 'No locations found.' : errorMessage
       }
 
       if (data) {

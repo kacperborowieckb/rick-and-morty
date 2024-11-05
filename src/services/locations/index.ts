@@ -20,8 +20,8 @@ export type GetLocationsResponse = {
   results: Location[]
 }
 
-async function getLocations(searchParams?: SearchParams) {
-  return await http.get<GetLocationsResponse>(`${endpoints.locations}`, { params: searchParams })
+async function getLocations(params?: SearchParams) {
+  return await http.get<GetLocationsResponse>(`${endpoints.locations}`, { params })
 }
 
 export default { getLocations }

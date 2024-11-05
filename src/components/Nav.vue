@@ -9,7 +9,7 @@
         />
       </RouterLink>
     </div>
-    <nav ref="navContainer" class="nav__nav-container">
+    <nav class="nav__nav-container">
       <ul ref="navList" class="nav__nav-list">
         <li 
           v-for="{ route, label } in navRoutes"
@@ -36,7 +36,6 @@ import { RouterLink, useRoute } from 'vue-router'
 import { navRoutes } from '@/constants'
 
 const navList = useTemplateRef<HTMLUListElement | null>('navList')
-const navContainer = useTemplateRef<HTMLElement | null>('navContainer')
 const routesContainers = useTemplateRef<HTMLAnchorElement[] | null>('routeContainer')
 
 const route = useRoute()
@@ -129,7 +128,7 @@ onUnmounted(() => window.addEventListener('resize', setTab))
     margin: $m-sm auto;
     padding: $p-sm;
     width: calc(100% - ($m-sm * 2));
-    max-width:fit-content;
+    max-width: fit-content;
 
     &__logo-container {
       flex-shrink: 0;
@@ -148,8 +147,8 @@ onUnmounted(() => window.addEventListener('resize', setTab))
     }
 
     &__nav-list {
-      gap: $space-xs;       
-      margin-left: $nav-mask-size;  
+      gap: $space-xs;
+      margin-left: $nav-mask-size;
     }
 
     &__nav-list-item {

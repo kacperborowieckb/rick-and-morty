@@ -45,10 +45,10 @@ import { gridTheme } from '@/theme'
 import type { Location } from '@/services/locations'
 import { defaultLocationsColDef, locationsColDefs } from '@/helpers/columnDefinitions'
 import { useLocationsStore } from '@/stores/locationsStore'
+import { locationsFilters } from '@/constants'
 
 import Pagination from './Pagination.vue'
 import SearchInput from './SearchInput.vue'
-import { locationsFilters } from '@/constants'
 
 export type LocationsTableSearchParams = {
   page: number
@@ -103,7 +103,7 @@ watch(searchParams, () => locationsStore.fetchLocations(searchParams.value))
     padding: $p-xs $p-md;
     transform: translateY(-6px);
     border-radius: 0 0 $radius $radius;
-    border: 1px solid $border;
+    border: $border-sm;
     background-color: $background;
   }
 
