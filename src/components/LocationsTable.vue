@@ -2,28 +2,15 @@
   <section class="locations-table">
     <div class="locations-table__filters-wrapper">
       <SearchInput
+        v-for="({ ariaLabel, paramKey, placeholder, items, type }, index) in locationsFilters"
         class="locations-table__filter"
-        :type="'input'"
-        :placeholder="'Location Name'"
-        :ariaLabel="'Search for location name'"
-        :selectedValue="searchParams.name"
-        @filterChange="(value) => setSearchParams({ name: value })"
-      />
-      <SearchInput
-        class="locations-table__filter"
-        :type="'input'"
-        :placeholder="'Location Type'"
-        :ariaLabel="'Search for location type'"
-        :selectedValue="searchParams.type"
-        @filterChange="(value) => setSearchParams({ type: value })"
-      />
-      <SearchInput
-        class="locations-table__filter"
-        :type="'input'"
-        :placeholder="'Location Dimension'"
-        :ariaLabel="'Search for location dimension'"
-        :selectedValue="searchParams.dimension"
-        @filterChange="(value) => setSearchParams({ dimension: value })"
+        :key="`${index}${paramKey}`"
+        :type="type"
+        :placeholder="placeholder"
+        :ariaLabel="ariaLabel"
+        :items="items"
+        :selectedValue="searchParams[paramKey]"
+        @filterChange="(value) => setSearchParams({ [paramKey]: value })"
       />
     </div>
     <div class="locations-table__grid-wrapper">
@@ -41,7 +28,7 @@
           class="locations-table__pagination"
           :currentPage="searchParams.page"
           :totalPagesNumber="locationsStore.pages"
-          @pageChange="(newPage) => setSearchParams({ page: newPage })"
+          @pageChange="(page) => setSearchParams({ page })"
         />
       </div>
     </div>
@@ -61,8 +48,9 @@ import { useLocationsStore } from '@/stores/locationsStore'
 
 import Pagination from './Pagination.vue'
 import SearchInput from './SearchInput.vue'
+import { locationsFilters } from '@/constants'
 
-type LocationsTableSearchParams = {
+export type LocationsTableSearchParams = {
   page: number
   name: string
   type: string
@@ -113,10 +101,10 @@ watch(searchParams, () => locationsStore.fetchLocations(searchParams.value))
   &__pagination-wrapper {
     display: flex;
     padding: $p-xs $p-md;
+    transform: translateY(-6px);
     border-radius: 0 0 $radius $radius;
     border: 1px solid $border;
     background-color: $background;
-    transform: translateY(-6px);
   }
 
   &__pagination {
