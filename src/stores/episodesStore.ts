@@ -30,7 +30,7 @@ export const useEpisodesStore = defineStore('episodes', {
 
       if (errorMessage) {
         this.$reset()
-        this.episodeError = errorStatus === 404 ? 'No characters found.' : errorMessage
+        this.episodeError = errorStatus === 404 ? 'No episodes found.' : errorMessage
       }
 
       if (data) {

@@ -2,9 +2,9 @@
   <section class="episodes-table">
     <SearchInput
       class="episodes-table__filter"
-      :type="'input'"
-      :placeholder="'Episode Name'"
-      :ariaLabel="'Search for episode name'"
+      type="input"
+      placeholder="Episode Name"
+      ariaLabel="Search for episode name"
       :selectedValue="searchParams.name"
       @filterChange="(value) => setSearchParams({ name: value })"
     />
@@ -39,10 +39,10 @@ import { useEpisodesStore } from '@/stores/episodesStore'
 import { useSearchParams } from '@/composables/useSearchParams'
 import { gridTheme } from '@/theme'
 import type { Episode } from '@/services/episodes'
+import { defaultEpisodesColDef, episodesColDefs } from '@/helpers/columnDefinitions'
 
 import Pagination from './Pagination.vue'
 import SearchInput from './SearchInput.vue'
-import { defaultEpisodesColDef, episodesColDefs } from '@/helpers/columnDefinitions'
 
 const gridApi = shallowRef<GridApi<Episode> | null>(null)
 
@@ -82,10 +82,10 @@ watch(searchParams, () => episodesStore.fetchEpisodes(searchParams.value))
   &__pagination-wrapper {
     display: flex;
     padding: $p-xs $p-md;
-    border-radius: 0 0 $radius $radius;
-    border: 1px solid $border;
-    background-color: $background;
     transform: translateY(-6px);
+    border-radius: 0 0 $radius $radius;
+    border: $border-sm;
+    background-color: $background;
   }
 
   &__pagination {
