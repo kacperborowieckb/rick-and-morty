@@ -1,16 +1,16 @@
 <template>
-  <section class="episodes-table">
+  <section class="table">
     <SearchInput
-      class="episodes-table__filter"
+      class="table__filter"
       type="input"
       placeholder="Episode Name"
       ariaLabel="Search for episode name"
       :selectedValue="searchParams.name"
       @filterChange="(name) => setSearchParams({ name })"
     />
-    <div class="episodes-table__grid-wrapper">
+    <div class="table__grid-wrapper">
       <AgGridVue
-        class="episodes-table__grid"
+        class="table__grid"
         :theme="gridTheme"
         :loading="episodesStore.isFetchingEpisodes"
         :defaultColDef="defaultEpisodesColDef"
@@ -18,9 +18,9 @@
         :rowData="episodesStore.episodes"
         @gridReady="onGridReady"
       />
-      <div class="episodes-table__pagination-wrapper">
+      <div class="table__pagination-wrapper">
         <Pagination
-          class="episodes-table__pagination"
+          class="table__pagination"
           :currentPage="searchParams.page"
           :totalPagesNumber="episodesStore.pages"
           @pageChange="(page) => setSearchParams({ page })"
@@ -59,38 +59,9 @@ watch(searchParams, () => episodesStore.fetchEpisodes(searchParams.value))
 </script>
 
 <style scoped lang="scss">
-.episodes-table {
-  $table-height: 488px;
-  $max-width-table: 964px;
-
-  display: flex;
-  flex-direction: column;
-  gap: $space-xs;
-  max-width: $max-width-table;
-  margin: 0 auto;
-
+.table {
   &__filter {
     width: max-content;
-  }
-
-  &__grid {
-    margin: 0 auto;
-    height: $table-height;
-    width: 100%;
-  }
-
-  &__pagination-wrapper {
-    display: flex;
-    padding: $p-xs $p-md;
-    transform: translateY(-6px);
-    border-radius: 0 0 $radius $radius;
-    border: $border-sm;
-    background-color: $background;
-  }
-
-  &__pagination {
-    margin: 0;
-    margin-left: auto;
   }
 }
 </style>
