@@ -1,7 +1,12 @@
 <template>
   <section class="table">
     <section class="table__filters-wrapper">
-      <FiltersList class="table__filter" :filters="filters" />
+      <FiltersList
+        class="table__filter"
+        :filters="filters"
+        :searchParams="searchParams"
+        @filterChange="handleFilterChange"
+      />
     </section>
     <AgGridVue
       class="table__grid"
@@ -64,6 +69,10 @@ function onGridReady(params: GridReadyEvent) {
   gridApi.value = params.api
 
   emit('fetchData', searchParams.value)
+}
+
+function handleFilterChange(newSearchParam?: Partial<K>) {
+  setSearchParams({ ...newSearchParam, page: 1 } as Partial<K>)
 }
 </script>
 

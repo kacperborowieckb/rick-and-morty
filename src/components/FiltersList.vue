@@ -8,7 +8,7 @@
     :ariaLabel="ariaLabel"
     :items="items"
     :selectedValue="searchParams[paramKey]"
-    @filterChange="(value) => setSearchParams({ [paramKey]: value } as Partial<K>)"
+    @filterChange="(value) => $emit('filterChange', { [paramKey]: value } as Partial<K>)"
   />
 </template>
 
@@ -24,7 +24,10 @@ export type FiltersMapArray<T, K> = (FiltersMapProps<T> & {
   paramKey: keyof K
 })[]
 
-defineProps<{ filters: FiltersMapArray<T, K>; class: string }>()
+type FiltersListProps = { filters: FiltersMapArray<T, K>; class: string; searchParams: K }
 
-const { searchParams, setSearchParams } = useSearchParams<K>()
+defineProps<FiltersListProps>()
+defineEmits<{
+  (e: 'filterChange', value?: Partial<K>): void
+}>()
 </script>
