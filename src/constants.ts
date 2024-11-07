@@ -1,3 +1,4 @@
+import type { LocationsTableSearchParams } from './components/LocationsTable.vue'
 import type { SearchInputProps } from './components/SearchInput.vue'
 import type { Character } from './services/characters'
 import type { CharactersViewSearchParams } from './views/CharactersView.vue'
@@ -75,5 +76,32 @@ export const charactersFilters: CharactersFiltersMapArray = [
     ariaLabel: 'Search for gender type',
     items: genderItems,
     paramKey: 'gender'
+  }
+]
+
+type LocationsSearchInputProps = Omit<SearchInputProps<string>, 'selectedValue'>
+
+type LocationsFiltersMapArray = (LocationsSearchInputProps & {
+  paramKey: keyof LocationsTableSearchParams
+})[]
+
+export const locationsFilters: LocationsFiltersMapArray = [
+  {
+    type: 'input',
+    placeholder: 'Location Name',
+    ariaLabel: 'Search for location name',
+    paramKey: 'name'
+  },
+  {
+    type: 'input',
+    placeholder: 'Location Type',
+    ariaLabel: 'Search for location type',
+    paramKey: 'type'
+  },
+  {
+    type: 'input',
+    placeholder: 'Location Dimension',
+    ariaLabel: 'Search for location dimension',
+    paramKey: 'dimension'
   }
 ]

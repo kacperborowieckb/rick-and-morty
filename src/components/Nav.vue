@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, useTemplateRef, watch } from 'vue'
+import { nextTick, onMounted, onUnmounted, useTemplateRef, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 import { navRoutes } from '@/constants'
@@ -53,7 +53,7 @@ async function setTab() {
 
   if (!activeRouteElement || !navList.value) return
 
-  const offsetLeft = activeRouteElement.offsetLeft
+  const offsetLeft = activeRouteElement.offsetLeft 
   const width = activeRouteElement.offsetWidth
 
   navList.value.style.setProperty('--offset-left', `${offsetLeft}px`)
@@ -61,6 +61,10 @@ async function setTab() {
 }
 
 watch(route, () => setTab())
+
+onMounted(() => window.addEventListener('resize', setTab))
+
+onUnmounted(() => window.addEventListener('resize', setTab))
 </script>
 
 <style scoped lang="scss">
@@ -121,9 +125,10 @@ watch(route, () => setTab())
   }
 
   @include respond(bp-md) {
-    margin: $m-sm;
+    margin: $m-sm auto;
     padding: $p-sm;
     width: calc(100% - ($m-sm * 2));
+    max-width: fit-content;
 
     &__logo-container {
       flex-shrink: 0;
@@ -142,9 +147,8 @@ watch(route, () => setTab())
     }
 
     &__nav-list {
-      justify-content: space-evenly;
       gap: $space-xs;
-      margin: 0 $nav-mask-size;
+      margin-left: $nav-mask-size;
     }
 
     &__nav-list-item {

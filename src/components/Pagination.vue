@@ -1,6 +1,12 @@
 <template>
   <section class="pagination">
-    <button class="pagination__button" @click="emit('pageChange', STARTING_PAGE)">&#171;</button>
+    <button
+      class="pagination__button"
+      :disabled="isPrevDisabled"
+      @click="emit('pageChange', STARTING_PAGE)"
+    >
+      &#171;
+    </button>
     <button
       class="pagination__button"
       :disabled="isPrevDisabled"
@@ -24,7 +30,13 @@
     >
       &gt;
     </button>
-    <button class="pagination__button" @click="emit('pageChange', totalPagesNumber)">&#187;</button>
+    <button
+      class="pagination__button"
+      :disabled="isNextDisabled"
+      @click="emit('pageChange', totalPagesNumber)"
+    >
+      &#187;
+    </button>
   </section>
 </template>
 

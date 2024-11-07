@@ -60,37 +60,22 @@ watch(searchParams, () => episodesStore.fetchEpisodes(searchParams.value))
 
 <style scoped lang="scss">
 .episodes-table {
-  $table-height: 488px;
-  $max-width-table: 964px;
-
-  display: flex;
-  flex-direction: column;
-  gap: $space-xs;
-  max-width: $max-width-table;
-  margin: 0 auto;
+  @extend .table;
 
   &__filter {
     width: max-content;
   }
 
   &__grid {
-    margin: 0 auto;
-    height: $table-height;
-    width: 100%;
+    @extend .table-grid;
   }
 
   &__pagination-wrapper {
-    display: flex;
-    padding: $p-xs $p-md;
-    transform: translateY(-6px);
-    border-radius: 0 0 $radius $radius;
-    border: $border-sm;
-    background-color: $background;
+    @extend .table-pagination-wrapper;
   }
 
   &__pagination {
-    margin: 0;
-    margin-left: auto;
+    @extend .table-pagination;
   }
 }
 </style>
