@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends string | number, K extends SearchParams<T>">
-import { useSearchParams, type SearchParams } from '@/composables/useSearchParams'
+import { type SearchParams } from '@/composables/useSearchParams'
 
 import type { SearchInputProps } from './SearchInput.vue'
 import SearchInput from './SearchInput.vue'
