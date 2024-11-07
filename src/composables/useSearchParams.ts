@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-export type SearchParams = Record<string, string | number>
+export type SearchParams<T = string | number> = Record<string, T>
 
 export const useSearchParams = <T extends SearchParams>() => {
   const route = useRoute()
