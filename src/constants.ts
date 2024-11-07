@@ -37,10 +37,7 @@ const genderItems: { label: string; value: Character['gender'] }[] = [
   { label: 'Unknown', value: 'unknown' }
 ]
 
-type CharactersFiltersMapArray = FiltersMapArray<
-  Character['status'] | Character['gender'] | string,
-  CharactersViewSearchParams
->
+type CharactersFiltersMapArray = FiltersMapArray<CharactersViewSearchParams>
 
 export const charactersFilters: CharactersFiltersMapArray = [
   {
@@ -75,7 +72,7 @@ export const charactersFilters: CharactersFiltersMapArray = [
   }
 ]
 
-type LocationsFiltersMapArray = FiltersMapArray<string, LocationsTableSearchParams>
+type LocationsFiltersMapArray = FiltersMapArray<LocationsTableSearchParams>
 
 export const locationsFilters: LocationsFiltersMapArray = [
   {
@@ -98,7 +95,7 @@ export const locationsFilters: LocationsFiltersMapArray = [
   }
 ]
 
-type EpisodesFiltersMapArray = FiltersMapArray<string, { name: string }>
+type EpisodesFiltersMapArray = FiltersMapArray<{ name: string }>
 
 export const episodesFilters: EpisodesFiltersMapArray = [
   {

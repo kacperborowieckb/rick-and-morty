@@ -27,11 +27,7 @@
   </main>
   <!-- Is it okay to bind big object like this in such cases?
        I know it is harder to read that's why i'm asking -->
-  <CharacterCardModal
-    v-bind="modalData"
-    :isOpen="isModalOpen"
-    @closeModal="closeModal"
-  />
+  <CharacterCardModal v-bind="modalData" :isOpen="isModalOpen" @closeModal="closeModal" />
 </template>
 
 <script setup lang="ts">

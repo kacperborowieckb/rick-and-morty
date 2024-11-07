@@ -7,27 +7,29 @@
     :placeholder="placeholder"
     :ariaLabel="ariaLabel"
     :items="items"
-    :selectedValue="searchParams[paramKey]"
-    @filterChange="(value) => $emit('filterChange', { [paramKey]: value } as Partial<K>)"
+    :selectedValue="searchParams[paramKey]?.toString() || ''"
+    @filterChange="(value) => $emit('filterChange', { [paramKey]: value })"
   />
 </template>
 
-<script setup lang="ts" generic="T extends string | number, K extends SearchParams<T>">
+<script setup lang="ts" generic="T">
 import { type SearchParams } from '@/composables/useSearchParams'
 
 import type { SearchInputProps } from './SearchInput.vue'
 import SearchInput from './SearchInput.vue'
 
-export type FiltersMapProps<T> = Omit<SearchInputProps<T>, 'selectedValue'>
-
-export type FiltersMapArray<T, K> = (FiltersMapProps<T> & {
-  paramKey: keyof K
+export type FiltersMapArray<T = SearchParams> = (Omit<SearchInputProps, 'selectedValue'> & {
+  paramKey: keyof T
 })[]
 
-type FiltersListProps = { filters: FiltersMapArray<T, K>; class: string; searchParams: K }
+type FiltersListProps = {
+  filters: FiltersMapArray
+  searchParams: SearchParams
+  class?: string
+}
 
 defineProps<FiltersListProps>()
 defineEmits<{
-  (e: 'filterChange', value?: Partial<K>): void
+  (e: 'filterChange', value: Partial<SearchParams>): void
 }>()
 </script>

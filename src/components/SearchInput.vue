@@ -28,15 +28,15 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="T">
+<script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue'
 
 import { debounce } from '@/utils/debounce'
 
-export type SearchInputProps<T> = {
+export type SearchInputProps = {
   type?: 'dropdown' | 'input'
-  items?: { label: string; value: T }[]
-  selectedValue: T
+  items?: { label: string; value: string }[]
+  selectedValue: string
   placeholder: string
   ariaLabel: string
 }
@@ -44,9 +44,9 @@ export type SearchInputProps<T> = {
 const currentInputValue = ref<string | null>(null)
 const searchInput = useTemplateRef<HTMLInputElement>('searchInput')
 
-const props = withDefaults(defineProps<SearchInputProps<T>>(), { type: 'dropdown' })
+const props = withDefaults(defineProps<SearchInputProps>(), { type: 'dropdown' })
 
-const emit = defineEmits<{ (e: 'filterChange', value?: T): void }>()
+const emit = defineEmits<{ (e: 'filterChange', value?: string): void }>()
 
 const searchItems = computed(() => filterSearchItems())
 
@@ -78,11 +78,11 @@ function handleInputChange() {
   currentInputValue.value = searchInput.value?.value ?? ''
 
   if (props.type === 'input') {
-    debouncedAction('filterChange', (currentInputValue.value as T) || undefined)
+    debouncedAction('filterChange', currentInputValue.value || undefined)
   }
 }
 
-function selectSearchValue(value: T, e?: MouseEvent) {
+function selectSearchValue(value: string, e?: MouseEvent) {
   const eventTarget = e?.target as HTMLElement
 
   clearCurrentInputValue()
@@ -90,7 +90,7 @@ function selectSearchValue(value: T, e?: MouseEvent) {
   eventTarget?.blur()
 }
 
-function findLabelForValue(value: T) {
+function findLabelForValue(value: string) {
   if (props.type === 'input') return value
 
   return props.items?.find((item) => item.value === value)?.label

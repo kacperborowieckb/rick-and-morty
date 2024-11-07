@@ -1,5 +1,5 @@
 <template>
-  <SearchInput
+  <!-- <SearchInput
     v-for="({ ariaLabel, paramKey, placeholder, items, type }, index) in charactersFilters"
     :key="`${index}${paramKey}`"
     :type="type"
@@ -8,11 +8,13 @@
     :items="items"
     :selectedValue="searchParams[paramKey]"
     @filterChange="(value) => setSearchParams({ [paramKey]: value })"
+  /> -->
+  <FiltersList
+    :filters="charactersFilters"
+    :searchParams="searchParams"
+    @filterChange="(value) => setSearchParams(value)"
   />
-
-  <Button style="width: 100%" @click="setSearchParams({}, true)">
-    Reset All
-  </Button>
+  <Button style="width: 100%" @click="setSearchParams({}, true)"> Reset All </Button>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +24,7 @@ import { charactersFilters } from '@/constants'
 
 import SearchInput, { type SearchInputProps } from './SearchInput.vue'
 import Button from './Button.vue'
+import FiltersList from './FiltersList.vue'
 
 const { searchParams, setSearchParams } = useSearchParams<CharactersViewSearchParams>()
 </script>

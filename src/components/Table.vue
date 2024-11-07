@@ -22,17 +22,13 @@
         class="table__pagination"
         :currentPage="searchParams.page"
         :totalPagesNumber="pages"
-        @pageChange="(page) => setSearchParams({ page } as Partial<K>)"
+        @pageChange="(page) => setSearchParams({ page })"
       />
     </section>
   </section>
 </template>
 
-<script
-  setup
-  lang="ts"
-  generic="T extends string | number, K extends SearchParams<T> & { page: number }, U"
->
+<script setup lang="ts" generic="T">
 import { AgGridVue } from 'ag-grid-vue3'
 import type { GridApi, GridReadyEvent, ColDef } from 'ag-grid-community'
 import { shallowRef, watch } from 'vue'
@@ -46,22 +42,24 @@ import FiltersList from './FiltersList.vue'
 import Pagination from './Pagination.vue'
 
 type TableProps = {
-  filters: FiltersMapArray<T, K>
-  rowData: U[]
+  filters: FiltersMapArray
+  rowData: T[]
   loading: boolean
-  colDefs: ColDef<U, any>[]
+  colDefs: ColDef<T, any>[]
   pages: number
 }
+
+type TableSearchParams = SearchParams & { page: number }
 
 defineProps<TableProps>()
 
 const emit = defineEmits<{
-  (e: 'fetchData', searchParams: K): void
+  (e: 'fetchData', searchParams: SearchParams): void
 }>()
 
-const gridApi = shallowRef<GridApi<U> | null>(null)
+const gridApi = shallowRef<GridApi<T> | null>(null)
 
-const { searchParams, setSearchParams } = useSearchParams<K>()
+const { searchParams, setSearchParams } = useSearchParams<TableSearchParams>()
 
 watch(searchParams, () => emit('fetchData', searchParams.value))
 
@@ -71,8 +69,8 @@ function onGridReady(params: GridReadyEvent) {
   emit('fetchData', searchParams.value)
 }
 
-function handleFilterChange(newSearchParam?: Partial<K>) {
-  setSearchParams({ ...newSearchParam, page: 1 } as Partial<K>)
+function handleFilterChange(newSearchParam?: Partial<TableSearchParams>) {
+  setSearchParams({ ...newSearchParam, page: 1 })
 }
 </script>
 
