@@ -1,5 +1,5 @@
+import type { FiltersMapArray } from './components/FiltersList.vue'
 import type { LocationsTableSearchParams } from './components/LocationsTable.vue'
-import type { SearchInputProps } from './components/SearchInput.vue'
 import type { Character } from './services/characters'
 import type { CharactersViewSearchParams } from './views/CharactersView.vue'
 
@@ -37,14 +37,10 @@ const genderItems: { label: string; value: Character['gender'] }[] = [
   { label: 'Unknown', value: 'unknown' }
 ]
 
-type CharactersSearchInputProps = Omit<
-  SearchInputProps<string | Character['status'] | Character['gender']>,
-  'selectedValue'
+type CharactersFiltersMapArray = FiltersMapArray<
+  Character['status'] | Character['gender'] | string,
+  CharactersViewSearchParams
 >
-
-type CharactersFiltersMapArray = (CharactersSearchInputProps & {
-  paramKey: keyof CharactersViewSearchParams
-})[]
 
 export const charactersFilters: CharactersFiltersMapArray = [
   {
@@ -79,11 +75,7 @@ export const charactersFilters: CharactersFiltersMapArray = [
   }
 ]
 
-type LocationsSearchInputProps = Omit<SearchInputProps<string>, 'selectedValue'>
-
-type LocationsFiltersMapArray = (LocationsSearchInputProps & {
-  paramKey: keyof LocationsTableSearchParams
-})[]
+type LocationsFiltersMapArray = FiltersMapArray<string, LocationsTableSearchParams>
 
 export const locationsFilters: LocationsFiltersMapArray = [
   {
@@ -103,5 +95,16 @@ export const locationsFilters: LocationsFiltersMapArray = [
     placeholder: 'Location Dimension',
     ariaLabel: 'Search for location dimension',
     paramKey: 'dimension'
+  }
+]
+
+type EpisodesFiltersMapArray = FiltersMapArray<string, { name: string }>
+
+export const episodesFilters: EpisodesFiltersMapArray = [
+  {
+    type: 'input',
+    placeholder: 'Episode Name',
+    ariaLabel: 'Search for episode name',
+    paramKey: 'name'
   }
 ]
