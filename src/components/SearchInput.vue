@@ -116,7 +116,6 @@ function clearSelectedValue() {
   $list-open-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 
   position: relative;
-  width: 100%;
 
   &__input {
     border: $search-input-border;

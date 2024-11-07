@@ -6,6 +6,7 @@
       :rowData="locationsStore.locations"
       :loading="locationsStore.isFetchingLocations"
       :colDefs="locationsColDefs"
+      :pages="locationsStore.pages"
       @fetchData="(searchParams) => locationsStore.fetchLocations(searchParams)"
     />
   </main>
