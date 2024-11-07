@@ -1,16 +1,16 @@
 <template>
-  <section class="table">
+  <section class="episodes-table">
     <SearchInput
-      class="table__filter"
+      class="episodes-table__filter"
       type="input"
       placeholder="Episode Name"
       ariaLabel="Search for episode name"
       :selectedValue="searchParams.name"
       @filterChange="(name) => setSearchParams({ name })"
     />
-    <div class="table__grid-wrapper">
+    <div class="episodes-table__grid-wrapper">
       <AgGridVue
-        class="table__grid"
+        class="episodes-table__grid"
         :theme="gridTheme"
         :loading="episodesStore.isFetchingEpisodes"
         :defaultColDef="defaultEpisodesColDef"
@@ -18,9 +18,9 @@
         :rowData="episodesStore.episodes"
         @gridReady="onGridReady"
       />
-      <div class="table__pagination-wrapper">
+      <div class="episodes-table__pagination-wrapper">
         <Pagination
-          class="table__pagination"
+          class="episodes-table__pagination"
           :currentPage="searchParams.page"
           :totalPagesNumber="episodesStore.pages"
           @pageChange="(page) => setSearchParams({ page })"
@@ -59,9 +59,23 @@ watch(searchParams, () => episodesStore.fetchEpisodes(searchParams.value))
 </script>
 
 <style scoped lang="scss">
-.table {
+.episodes-table {
+  @extend .table;
+
   &__filter {
     width: max-content;
+  }
+
+  &__grid {
+    @extend .table-grid;
+  }
+
+  &__pagination-wrapper {
+    @extend .table-pagination-wrapper;
+  }
+
+  &__pagination {
+    @extend .table-pagination;
   }
 }
 </style>

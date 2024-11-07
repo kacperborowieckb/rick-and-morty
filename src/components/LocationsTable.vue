@@ -1,9 +1,9 @@
 <template>
-  <section class="table">
-    <div class="table__filters-wrapper">
+  <section class="locations-table">
+    <div class="locations-table__filters-wrapper">
       <SearchInput
         v-for="({ ariaLabel, paramKey, placeholder, items, type }, index) in locationsFilters"
-        class="table__filter"
+        class="locations-table__filter"
         :key="`${index}${paramKey}`"
         :type="type"
         :placeholder="placeholder"
@@ -13,9 +13,9 @@
         @filterChange="(value) => setSearchParams({ [paramKey]: value })"
       />
     </div>
-    <div class="table__grid-wrapper">
+    <div class="locations-table__grid-wrapper">
       <AgGridVue
-        class="table__grid"
+        class="locations-table__grid"
         :theme="gridTheme"
         :loading="locationsStore.isFetchingLocations"
         :defaultColDef="defaultLocationsColDef"
@@ -23,9 +23,9 @@
         :rowData="locationsStore.locations"
         @gridReady="onGridReady"
       />
-      <div class="table__pagination-wrapper">
+      <div class="locations-table__pagination-wrapper">
         <Pagination
-          class="table__pagination"
+          class="locations-table__pagination"
           :currentPage="searchParams.page"
           :totalPagesNumber="locationsStore.pages"
           @pageChange="(page) => setSearchParams({ page })"
@@ -72,11 +72,29 @@ watch(searchParams, () => locationsStore.fetchLocations(searchParams.value))
 </script>
 
 <style scoped lang="scss">
-.table {
+.locations-table {
+  @extend .table;
+
   &__filters-wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: $space-sm;
+  }
+
+  &__filter {
+    width: max-content;
+  }
+
+  &__grid {
+    @extend .table-grid;
+  }
+
+  &__pagination-wrapper {
+    @extend .table-pagination-wrapper;
+  }
+
+  &__pagination {
+    @extend .table-pagination;
   }
 
   @include respond(bp-sm) {
