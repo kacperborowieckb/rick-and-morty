@@ -3,21 +3,54 @@
     <section class="table__filters-wrapper">
       <FiltersList class="table__filter" :filters="filters" />
     </section>
+    <AgGridVue
+      class="table__grid"
+      :theme="gridTheme"
+      :loading="loading"
+      :defaultColDef="defaultLocationsColDef"
+      :columnDefs="colDefs"
+      :rowData="rowData"
+      @gridReady="onGridReady"
+    />
   </section>
 </template>
 
-<script setup lang="ts" generic="T extends string | number, K extends SearchParams<T>">
+<script setup lang="ts" generic="T extends string | number, K extends SearchParams<T>, U">
+import { AgGridVue } from 'ag-grid-vue3'
+import type { GridApi, GridReadyEvent, ColDef } from 'ag-grid-community'
+import { shallowRef, watch } from 'vue'
+
 import { useSearchParams, type SearchParams } from '@/composables/useSearchParams'
+import { gridTheme } from '@/theme'
+
 import type { FiltersMapArray } from './FiltersList.vue'
 import FiltersList from './FiltersList.vue'
+import { defaultLocationsColDef } from '@/helpers/columnDefinitions'
 
 type TableProps = {
   filters: FiltersMapArray<T, K>
+  rowData: U[]
+  loading: boolean
+  colDefs: ColDef<U, any>[]
 }
 
 const props = defineProps<TableProps>()
 
+const emit = defineEmits<{
+  (e: 'fetchData', searchParams: K): void
+}>()
+
+const gridApi = shallowRef<GridApi<U> | null>(null)
+
 const { searchParams, setSearchParams } = useSearchParams<K>()
+
+const onGridReady = (params: GridReadyEvent) => {
+  gridApi.value = params.api
+
+  emit('fetchData', searchParams.value)
+}
+
+watch(searchParams, () => emit('fetchData', searchParams.value))
 </script>
 
 <style lang="scss">
