@@ -82,36 +82,3 @@ select {
     font-family: inherit;
     font-size: inherit;
 }
-
-.table {
-    $max-width-table: 964px;
-
-    display: flex;
-    flex-direction: column;
-    gap: $space-xs;
-    max-width: $max-width-table;
-    margin: 0 auto;
-
-}
-
-.table-grid {
-    $table-height: 488px;
-
-    margin: 0 auto;
-    height: $table-height;
-    width: 100%;
-}
-
-.table-pagination-wrapper {
-    display: flex;
-    padding: $p-xs $p-md;
-    transform: translateY(-6px);
-    border-radius: 0 0 $radius $radius;
-    border: $border-sm;
-    background-color: $background;
-}
-
-.table-pagination {
-    margin: 0;
-    margin-left: auto;
-}
