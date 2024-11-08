@@ -54,7 +54,7 @@ type TableSearchParams = SearchParams & { page: number }
 defineProps<TableProps>()
 
 const emit = defineEmits<{
-  (e: 'fetchData', searchParams: SearchParams): void
+  (e: 'fetchData', searchParams: TableSearchParams): void
 }>()
 
 const gridApi = shallowRef<GridApi<T> | null>(null)

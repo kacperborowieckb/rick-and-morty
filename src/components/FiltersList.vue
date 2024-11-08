@@ -12,13 +12,16 @@
   />
 </template>
 
-<script setup lang="ts" generic="T">
+<script setup lang="ts">
 import { type SearchParams } from '@/composables/useSearchParams'
 
 import type { SearchInputProps } from './SearchInput.vue'
 import SearchInput from './SearchInput.vue'
 
-export type FiltersMapArray<T = SearchParams> = (Omit<SearchInputProps, 'selectedValue'> & {
+export type FiltersMapArray<T extends SearchParams = SearchParams> = (Omit<
+  SearchInputProps,
+  'selectedValue'
+> & {
   paramKey: keyof T
 })[]
 
