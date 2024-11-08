@@ -3,22 +3,25 @@
     <h1 class="locations-view__heading">Explore Rick and Morty Locations!</h1>
     <Table
       :filters="locationsFilters"
-      :rowData="locationsStore.locations"
-      :loading="locationsStore.isFetchingLocations"
+      :rowData="locations"
+      :loading="isFetchingLocations"
       :colDefs="locationsColDefs"
-      :pages="locationsStore.pages"
-      @fetchData="(searchParams) => locationsStore.fetchLocations(searchParams)"
+      :pages="pages"
+      @fetchData="locationsStore.fetchLocations"
     />
   </main>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import Table from '@/components/Table.vue'
 import { locationsFilters } from '@/constants'
 import { locationsColDefs } from '@/helpers/columnDefinitions'
 import { useLocationsStore } from '@/stores/locationsStore'
 
 const locationsStore = useLocationsStore()
+const { locations, isFetchingLocations, pages } = storeToRefs(locationsStore)
 </script>
 
 <style scoped lang="scss">

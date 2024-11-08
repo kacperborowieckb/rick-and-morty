@@ -83,7 +83,7 @@ function handleFilterChange(newSearchParam?: Partial<TableSearchParams>) {
   flex-direction: column;
   gap: $space-xs;
   max-width: $max-width-table;
-  margin: 0 auto;
+  margin: 0 auto !important;
 
   &__filters-wrapper {
     display: flex;

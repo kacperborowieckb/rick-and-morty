@@ -3,22 +3,25 @@
     <h1 class="episodes-view__heading">Explore Rick and Morty Episodes!</h1>
     <Table
       :filters="episodesFilters"
-      :rowData="episodeStore.episodes"
-      :loading="episodeStore.isFetchingEpisodes"
+      :rowData="episodes"
+      :loading="isFetchingEpisodes"
       :colDefs="episodesColDefs"
-      :pages="episodeStore.pages"
-      @fetchData="(searchParams) => episodeStore.fetchEpisodes(searchParams)"
+      :pages="pages"
+      @fetchData="episodeStore.fetchEpisodes"
     />
   </main>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import Table from '@/components/Table.vue'
 import { episodesFilters } from '@/constants'
 import { episodesColDefs } from '@/helpers/columnDefinitions'
 import { useEpisodesStore } from '@/stores/episodesStore'
 
 const episodeStore = useEpisodesStore()
+const { episodes, isFetchingEpisodes, pages } = storeToRefs(episodeStore)
 </script>
 
 <style scoped lang="scss">
